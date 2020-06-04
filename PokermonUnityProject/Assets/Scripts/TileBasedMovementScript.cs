@@ -10,7 +10,7 @@ public class TileBasedMovementScript : MonoBehaviour
     public Rigidbody2D rb;
 
     Vector2 movement;
-    /***********niga*********************************************************//**
+    /**********************************************************************//**
     * Funksjon som blir kalt en gang hver frame.
     *
     * Antall ganger tilkalt er dynamisk og avhenger av frameRate. Er derfor
