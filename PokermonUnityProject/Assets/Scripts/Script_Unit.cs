@@ -40,4 +40,63 @@ public class Script_Unit : MonoBehaviour
             currentHP = maxHP;
     }
 
+    /**********************************************************************//**
+    * Funksjon for å Save en Unit, nemlig player. Brukt i "Save" knapper
+    *
+    * @see Script_saveSystem.SavePlayer(Script_Unit) - Unit (player) som lagres
+    **************************************************************************/
+    public void SavePlayer()
+    {
+        Script_saveSystem.SavePlayer(this);
+    }
+
+
+    /**********************************************************************//**
+    * Funksjon for å "Loading" av Unit, nemlig player. Brukt i "Load" knapper
+    *
+    * @see Script_saveSystem.LoadPlayer() - Unit (player) som lagres
+    **************************************************************************/
+    public void LoadPlayer()
+    {
+        Script_playerData data = Script_saveSystem.LoadPlayer();
+        unitLevel = data.level;
+        currentHP = data.health;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        transform.position = position;
+
+
+    /**********************************************************************//**
+    * Funksjon for å Save en Unit, nemlig enemy.
+    *
+    * @see Script_saveSystem.SaveEnemy(Script_Unit) - Unit (enemy) som lagres
+    **************************************************************************/
+    }
+    public void SaveEnemy()
+    {
+        Script_saveSystem.SaveEnemy(this);
+    }
+
+    /**********************************************************************//**
+    * Funksjon for "Loading" av en Unit, nemlig enemy.
+    *
+    * @see Script_saveSystem.LoadEnemy(Script_Unit) - Unit (enemy) som lagres
+    **************************************************************************/
+    public void LoadEnemy()
+    {
+        Script_enemyData data = Script_saveSystem.LoadEnemy();
+        unitLevel = data.level;
+        currentHP = data.health;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        transform.position = position;
+    }
+
+
 }
