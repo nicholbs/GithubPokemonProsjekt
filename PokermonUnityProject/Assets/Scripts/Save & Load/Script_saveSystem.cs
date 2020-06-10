@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.IO; //Library for når vi skal jobbe med filer, Filestream objekter
-using System.Runtime.Serialization.Formatters.Binary; 
-                                             //>Library for binære formatterere
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+//>Library for binære formatterere
 
 
 public static class Script_saveSystem   
 {
     public static string playerPath = "/player.happyDays";    //path til player
     public static string enemyPath = "/enemy.happyDays";       //path til Enemy
-    
+
+
     /**********************************************************************//**
     * Funksjon for å "save/lagre" en Unit, for eksempel spiller eller enemy.
     * 
@@ -37,11 +39,12 @@ public static class Script_saveSystem
         //>Lager ny FileStream objekt "stream" som reffererer til nye filen
 
         Script_playerData data = new Script_playerData(player);
-           //>Lager ny "playerData" objekt som skal holde alle dataen vi henter
-                                       //>fra Unit, i dette eksempelet "player"
-        formatter.Serialize(stream, data);  //lagrer Unit (player) sin data i
+        //Lager ny "playerData" objekt som skal holde alle dataen vi henter
+        //>fra Unit, i dette eksempelet "player"
+        formatter.Serialize(stream, data);    //lagrer Unit (player) sin data i  
             //>filen (stream) som er "Serialized" og formatterer den til binært
         stream.Close();                //Lukker filen som "stream" refferer til
+        
     }
 
 
