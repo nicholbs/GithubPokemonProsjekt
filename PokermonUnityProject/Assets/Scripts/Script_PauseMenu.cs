@@ -69,7 +69,7 @@ public class Script_PauseMenu : MonoBehaviour
   
     }      
 
-  
+    
     /**********************************************************************//**
     * Funksjon for å vise pause menyen, og setter player sin movement inaktiv.
     *
@@ -86,7 +86,6 @@ public class Script_PauseMenu : MonoBehaviour
         player.GetComponent<TileBasedMovementScript>().enabled = false;
    //>Gjør bevegelses scriptet til spilleren inaktiv og spiller kan ikke bevege
         GameIsPaused = true;          //Setter GameIsPaused variabelen som true
-
 
 
         //Time.timeScale = 0f;          //Setter tiden til å bli stillestående

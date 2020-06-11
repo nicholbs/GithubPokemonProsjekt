@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileBasedMovementScript : MonoBehaviour
 {
-    public float movementSpeed = 5f;          //statisk movementSpeed på Objekt
+    public float movementSpeed = 1.0f;          //statisk movementSpeed på Objekt
 
     public Animator animator;  //variabel for animator, bruk animator som param
     public Rigidbody2D rb; 
