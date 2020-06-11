@@ -14,15 +14,15 @@ public class Bossshadow : MonoBehaviour
     {
         RGBTilBoss.canvasRenderer.SetAlpha(0.0f);
     
-        StartCoroutine(fadein());
+        StartCoroutine(Fadein());
 
     }
 
 
-    IEnumerator fadein()
+    IEnumerator Fadein()
     {
         yield return new WaitForSeconds(2f);
-        RGBTilBoss.CrossFadeAlpha(1, 2, false);
+        RGBTilBoss.CrossFadeAlpha(1, 1, false);
     }
 
 }
