@@ -130,3 +130,7 @@ MonoBehaviour:
   damage: 5
   maxHP: 100
   currentHP: 80
+  healingAmount: 0
+  currentEXP: 10
+  maxEXP: 100
+  xpToGiveIfDefeated: 50

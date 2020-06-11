@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
+using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
 
@@ -67,6 +69,9 @@ public class BattleSystem : MonoBehaviour
         /*
          * Gjør midlertidig posisjonen til spilleren lik x=0, y=0 og z=0
          * slik at spilleren sin sprite blir riktig plassert på battleStation
+         * NB! sier aldri delete, kan dette bli minne lekasje? ser ut til at
+         * C# har garbage collection som forhindrer slike problemer i
+         * motsetning til C og C++
          */
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         
@@ -87,7 +92,7 @@ public class BattleSystem : MonoBehaviour
         playerHUD.SetHud(playerUnit);  //Oppdaterer "Player" sin BattleHud info
         enemyHUD.SetHud(enemyUnit);     //Oppdaterer "Enemy" sin BattleHud info
 
-        yield return new WaitForSeconds(2f);   //Venter i to sekunder for intro
+        yield return new WaitForSeconds(1f);      //Venter i 1 sekund for intro
 
         state = BattleState.PLAYERTURN;                        //Player sin tur
         PlayerTurn();                  //Oppdaterer Image_DialogueBox sin tekst
@@ -116,7 +121,7 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "The attack is successful!";           //Veiledende
 
 
-        yield return new WaitForSeconds(2f);//Venter i to sekunder før ny state
+        yield return new WaitForSeconds(0.5f);          //Venter i 0.5 sekunder
 
         if (isDead)
         {
@@ -151,7 +156,7 @@ public class BattleSystem : MonoBehaviour
         playerHUD.SetHp(playerUnit.currentHP); //Oppdaterer Player BattleHud hp
         dialogueText.text = "You feel renewed strenght!";          //Veiledende
 
-        yield return new WaitForSeconds(2f);                   //Venter i 2 sek
+        yield return new WaitForSeconds(0.5f);               //Venter i 0.5 sek
 
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());                            //Enemy sin tur
@@ -214,23 +219,67 @@ public class BattleSystem : MonoBehaviour
     **************************************************************************/
     void EndBattle()
     {
-            playerPrefab.GetComponent<Transform>().position = gammelPos;
-            /*
-             * Gjør posisjonen til spilleren tilbake til pos den hadde i selve
-             * spillet fra den nullstilte posisjonen som er nødvendig i battle
-             */
 
         if (state == BattleState.WON)
         {
             dialogueText.text = "You won the battle!";
+            //Unit temp =
+            playerHUD.SetXp(enemyUnit.xpToGiveIfDefeated);                      //oppdater xpslider
+            playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
+            //playerPrefab.GetComponent<Unit>().currentEXP = temp.currentEXP;
+            //playerPrefab.GetComponent<Unit>().maxEXP = temp.maxEXP;
+            OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab
+           
+            
         }
         else if (state == BattleState.LOST)
         {
-        
             dialogueText.text = "You are defeated!";
+            enemyHUD.SetXp(playerUnit.xpToGiveIfDefeated);
+             OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab
         }
     }
 
+
+ 
+
+
+
+    /**********************************************************************//**
+    * Funksjon for å oppdatere prefab sine data med nye verdier etter kamp
+    **************************************************************************/
+    public void OppdaterPreFab()
+    {
+        playerPrefab.GetComponent<Unit>().currentEXP =
+                                          playerUnit.currentEXP;      //unitLevel
+        playerPrefab.GetComponent<Unit>().maxEXP =
+                                         playerUnit.maxEXP;      //unitLevel
+
+        playerPrefab.GetComponent<Transform>().position = gammelPos;
+        /*
+         * Gjør posisjonen til spilleren tilbake til pos den hadde i selve
+         * spillet fra den nullstilte posisjonen som er nødvendig i battle
+         */
+
+        playerPrefab.GetComponent<Unit>().unitLevel =
+                                         playerUnit.unitLevel;      //unitLevel
+
+        playerPrefab.GetComponent<Unit>().damage =
+                                            playerUnit.damage;         //damage
+
+        playerPrefab.GetComponent<Unit>().maxHP =
+                                             playerUnit.maxHP;          //maxHP
+
+        playerPrefab.GetComponent<Unit>().currentHP =
+                                         playerUnit.currentHP;      //CurrentHP
+
+        playerPrefab.GetComponent<Unit>().healingAmount =
+                                     playerUnit.healingAmount;  //healingAmount
+        /*
+         * Oppdaterer verdiene til spilleren med unit playerUnit sin data fra
+         * kampen slik at spilleren blir i annen scene også er oppdatert.
+         */
+    }
 
     /**********************************************************************//**
     * Funksjon brukt i "Attack" knappen. Sjekker state, angriper om riktig.

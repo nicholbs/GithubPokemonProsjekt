@@ -7,8 +7,10 @@ public class PlayerData
 {
     public int level;
     public int health;
+    public float xp;
     public float[] position;
-                          //>Dataen som er tilgjengelig for oss å lagre til fil
+    public float xpGivenIfDeafeted;
+    //>Dataen som er tilgjengelig for oss å lagre til fil
 
 
     /**********************************************************************//**
@@ -20,7 +22,9 @@ public class PlayerData
     public PlayerData (Unit player) {
         level = player.unitLevel;
         health = player.currentHP;
-        
+        xp = player.currentEXP;
+        xpGivenIfDeafeted = player.xpToGiveIfDefeated;
+
         position = new float[3];
         position[0] = player.transform.position.x;
         position[1] = player.transform.position.y;

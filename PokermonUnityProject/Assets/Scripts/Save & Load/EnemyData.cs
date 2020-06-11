@@ -7,7 +7,9 @@ public class EnemyData
 {
     public int level;
     public int health;
+    public float xp;
     public float[] position;
+    public float xpGivenIfDeafeted;
                           //>Dataen som er tilgjengelig for oss å lagre til fil
    
     /**********************************************************************//**
@@ -20,6 +22,8 @@ public class EnemyData
     {
         level = enemy.unitLevel;
         health = enemy.currentHP;
+        xp = enemy.currentEXP;
+        xpGivenIfDeafeted = enemy.xpToGiveIfDefeated;
 
         position = new float[3];
         position[0] = enemy.transform.position.x;
