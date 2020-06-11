@@ -3105,7 +3105,7 @@ MonoBehaviour:
   state: 0
   playerPrefab: {fileID: 6533412198593527867, guid: 916c7a83b19fdea40a36acf9530a9581,
     type: 3}
-  enemyPrefab: {fileID: 5714826702767282722, guid: 43bb58e3542c49a47b79911e6f82b947,
+  enemyPrefab: {fileID: 9192624413234504734, guid: aad576fd9c27ce7489bb89723b64f482,
     type: 3}
   playerBattleStation: {fileID: 1774191798}
   enemyBattleStation: {fileID: 339946296}

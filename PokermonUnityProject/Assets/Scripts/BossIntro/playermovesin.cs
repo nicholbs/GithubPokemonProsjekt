@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class playermovesin : MonoBehaviour
+public class Playermovesin : MonoBehaviour
 {
-    float lerpTime = 1f;
+    const float lerpTime = 1f;
     float currentLerpTime;
 
-    float moveDistance = 600f;
+    const float moveDistance = 600f;
 
     Vector3 startPos;
     Vector3 endPos;
