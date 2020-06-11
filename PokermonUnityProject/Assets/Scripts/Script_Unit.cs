@@ -51,6 +51,7 @@ public class Script_Unit : MonoBehaviour
     }
 
 
+
     /**********************************************************************//**
     * Funksjon for å "Loading" av Unit, nemlig player. Brukt i "Load" knapper
     *

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
+
+
 public class Script_PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;   //Variabel for om game er paused
@@ -46,7 +48,7 @@ public class Script_PauseMenu : MonoBehaviour
 
         }
     }
-
+ 
     /**********************************************************************//**
     * Funksjon for å ta vekk pause menyen og lar spilleren bevege seg.
     *
@@ -58,13 +60,14 @@ public class Script_PauseMenu : MonoBehaviour
     * Kontra 0f som er stille.
     **************************************************************************/
     public void Resume()
-    {
+    {      
         pauseMenuUI.SetActive(false);  //setter pause menyen til å være inaktiv
         GameIsPaused = false;        //Setter GameIsPaused variabelen som false
         player.GetComponent<TileBasedMovementScript>().enabled = true;
-      //>Gjør bevegelses scriptet til spilleren aktiv og spiller kan bevege seg
-      //Time.timeScale = 1f;            //Denne setter tiden til å bli "normal"
-    }
+        //>Gjør bevegelses scriptet til spilleren aktiv og spiller kan bevege seg
+        //Time.timeScale = 1f;            //Denne setter tiden til å bli "normal"
+  
+    }      
 
   
     /**********************************************************************//**

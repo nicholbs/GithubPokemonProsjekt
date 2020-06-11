@@ -41,6 +41,7 @@ public static class Script_saveSystem
         Script_playerData data = new Script_playerData(player);
         //Lager ny "playerData" objekt som skal holde alle dataen vi henter
         //>fra Unit, i dette eksempelet "player"
+        
         formatter.Serialize(stream, data);    //lagrer Unit (player) sin data i  
             //>filen (stream) som er "Serialized" og formatterer den til binært
         stream.Close();                //Lukker filen som "stream" refferer til
