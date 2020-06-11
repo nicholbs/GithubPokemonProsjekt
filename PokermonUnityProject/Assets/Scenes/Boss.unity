@@ -379,7 +379,6 @@ GameObject:
   - component: {fileID: 624663352}
   - component: {fileID: 624663355}
   - component: {fileID: 624663356}
-  - component: {fileID: 624663357}
   m_Layer: 5
   m_Name: Boss
   m_TagString: Untagged
@@ -490,19 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RGBTilBoss: {fileID: 624663353}
---- !u!114 &624663357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624663350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5908d94eb0bf1734bac2de989e1dea43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RGBTilBoss: {fileID: 0}
 --- !u!1 &1020373530
 GameObject:
   m_ObjectHideFlags: 0
