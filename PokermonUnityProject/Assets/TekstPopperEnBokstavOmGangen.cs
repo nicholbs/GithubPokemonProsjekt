@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class anim : MonoBehaviour
+public class TekstPopperEnBokstavOmGangen : MonoBehaviour
 {
 
     public float letterPause = 0.1f;
