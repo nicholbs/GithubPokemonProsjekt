@@ -6,7 +6,7 @@ using UnityEngine.UI;                            //Nødvendig for UI object Text
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
         //>variabel BattleState for å representere hvilken "State" spillet er i
   
-public class Script_BattleSystem : MonoBehaviour
+public class BattleSystem : MonoBehaviour
 {
     public BattleState state;  //Variabel for "State" i GameObject_BattleSystem
 
@@ -19,22 +19,30 @@ public class Script_BattleSystem : MonoBehaviour
     public Transform enemyBattleStation;
                     //>variabel for pos til battleStation hvor "Enemy" skal stå
 
-    Script_Unit playerUnit;                //variabel for Unit, put "Player" som param
-    Script_Unit enemyUnit;                  //variabel for Unit, put "Enemy" som param
+    Unit playerUnit;                //variabel for Unit, put "Player" som param
+    Unit enemyUnit;                  //variabel for Unit, put "Enemy" som param
 
     public Text dialogueText;           //variabel for Text i Image_dialogueBox
 
 
-    public Script_BattleHud playerHUD;    //variabel for BattleHud til "Player"
-    public Script_BattleHud enemyHUD;      //variabel for BattleHud til "Enemy"
+    public BattleHud playerHUD;    //variabel for BattleHud til "Player"
+    public BattleHud enemyHUD;      //variabel for BattleHud til "Enemy"
 
 
+    Vector3 gammelPos;
+  
  
     /**********************************************************************//**
     * Funksjon som blir kalt før første frame oppdateringen, altså med en gang.
     **************************************************************************/
     void Start()
     {
+    gammelPos = playerPrefab.GetComponent<Transform>().position;
+        /*
+         * Lagrer posisjonen til player slik at vi kan nullstille pos i battle
+         * slik at spilleren sin sprite blir riktig plassert på battleStation
+         * Så når kampen er over blir pos tilbake til gammelPos
+         */
         state = BattleState.START;                //BattleState starter i START
         StartCoroutine(SetupBattle());//For å lage ventetid bruker vi Coroutine
         //>Coroutine kjører seperat fra alt annet og lar oss pause når vi vil.
@@ -55,14 +63,20 @@ public class Script_BattleSystem : MonoBehaviour
     **************************************************************************/
     IEnumerator SetupBattle()
 {
+        playerPrefab.GetComponent<Transform>().position = new Vector3(0, 0, 0);
+        /*
+         * Gjør midlertidig posisjonen til spilleren lik x=0, y=0 og z=0
+         * slik at spilleren sin sprite blir riktig plassert på battleStation
+         */
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+        
         //>Instantiate kopierer ett objekt og kan overloades med ny pos
            //>Lager GameObject lik "Unit" (Player) og med pos til BattleStation
 
-        playerUnit = playerGO.GetComponent<Script_Unit>();
+        playerUnit = playerGO.GetComponent<Unit>();
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Script_Unit>();
+        enemyUnit = enemyGO.GetComponent<Unit>();
         //>Instantiate kopierer ett objekt og kan overloades med ny pos
             //>Lager GameObject lik "Unit" (Enemy) og med pos til BattleStation
 
@@ -200,12 +214,19 @@ public class Script_BattleSystem : MonoBehaviour
     **************************************************************************/
     void EndBattle()
     {
+            playerPrefab.GetComponent<Transform>().position = gammelPos;
+            /*
+             * Gjør posisjonen til spilleren tilbake til pos den hadde i selve
+             * spillet fra den nullstilte posisjonen som er nødvendig i battle
+             */
+
         if (state == BattleState.WON)
         {
             dialogueText.text = "You won the battle!";
         }
         else if (state == BattleState.LOST)
         {
+        
             dialogueText.text = "You are defeated!";
         }
     }

@@ -5,7 +5,7 @@ using System;
 //>Library for binære formatterere
 
 
-public static class Script_saveSystem   
+public static class SaveSystem   
 {
     public static string playerPath = "/player.happyDays";    //path til player
     public static string enemyPath = "/enemy.happyDays";       //path til Enemy
@@ -24,7 +24,7 @@ public static class Script_saveSystem
     * @param Script_Unit player - medsendt Unit, nemlig player som blir lagret
     * @see Script_playerData(Script_Unit player) - hente data fra Unit param
     **************************************************************************/
-    public static void SavePlayer(Script_Unit player)
+    public static void SavePlayer(Unit player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
                          //>BinaryFormatter er et objekt som formatterer en fil
@@ -38,7 +38,7 @@ public static class Script_saveSystem
         FileStream stream = new FileStream(path, FileMode.Create);
         //>Lager ny FileStream objekt "stream" som reffererer til nye filen
 
-        Script_playerData data = new Script_playerData(player);
+        PlayerData data = new PlayerData(player);
         //Lager ny "playerData" objekt som skal holde alle dataen vi henter
         //>fra Unit, i dette eksempelet "player"
         
@@ -56,7 +56,7 @@ public static class Script_saveSystem
     * Dersom eksisterer, gjør binært innhold til leselig og returnerer data.
     * NB! Innhold i player filen er fortsatt binært etter funksjon.
     **************************************************************************/
-    public static Script_playerData LoadPlayer()
+    public static PlayerData LoadPlayer()
     {
         
         string path = Application.persistentDataPath + playerPath;
@@ -72,7 +72,7 @@ public static class Script_saveSystem
             FileStream stream = new FileStream(path, FileMode.Open);
              //FileStream stream objektetet reffererer til filen og "åpner" den
 
-   Script_playerData data = formatter.Deserialize(stream) as Script_playerData;
+   PlayerData data = formatter.Deserialize(stream) as PlayerData;
             //>Lagrer data i filen, men siden filen er binært fra savePlayer()
             //>må vi først bruke binære formattereren sin "Deserialize" for å
             //>gjøre innholdet fra binært til lesbar tekst.
@@ -104,7 +104,7 @@ public static class Script_saveSystem
     * @param Script_Unit enemy - medsendt Unit, nemlig enemy som blir lagret
     * @see Script_enemyData(Script_Unit enemy) - hente data fra Unit param
     **************************************************************************/
-    public static void SaveEnemy(Script_Unit enemy)
+    public static void SaveEnemy(Unit enemy)
     {
         BinaryFormatter formatter = new BinaryFormatter();
                          //>BinaryFormatter er et objekt som formatterer en fil
@@ -118,7 +118,7 @@ public static class Script_saveSystem
         FileStream stream = new FileStream(path, FileMode.Create);
             //>Lager ny FileStream objekt "stream" som reffererer til nye filen
 
-        Script_enemyData data = new Script_enemyData(enemy);
+        EnemyData data = new EnemyData(enemy);
             //>Lager ny "enemyData" objekt som skal holde alle dataen vi henter
                                         //>fra Unit, i dette eksempelet "enemy"
         formatter.Serialize(stream, data);     //lagrer Unit (enemy) sin data i
@@ -134,7 +134,7 @@ public static class Script_saveSystem
     * Dersom eksisterer, gjør binært innhold til leselig og returnerer data.
     * NB! Innhold i player filen er fortsatt binært etter funksjon.
     **************************************************************************/
-    public static Script_enemyData LoadEnemy()
+    public static EnemyData LoadEnemy()
     {
 
         string path = Application.persistentDataPath + enemyPath;
@@ -151,7 +151,7 @@ public static class Script_saveSystem
             FileStream stream = new FileStream(path, FileMode.Open);
              //FileStream stream objektetet reffererer til filen og "åpner" den
 
-     Script_enemyData data = formatter.Deserialize(stream) as Script_enemyData;
+     EnemyData data = formatter.Deserialize(stream) as EnemyData;
               //>Lagrer data i filen, men siden filen er binært fra saveEnemy()
               //>må vi først bruke binære formattereren sin "Deserialize" for å
                                 //>gjøre innholdet fra binært til lesbar tekst.

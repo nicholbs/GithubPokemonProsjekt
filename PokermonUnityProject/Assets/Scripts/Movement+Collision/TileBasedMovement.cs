@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileBasedMovementScript : MonoBehaviour
+public class TileBasedMovement : MonoBehaviour
 {
     public float movementSpeed = 1.0f;          //statisk movementSpeed på Objekt
 

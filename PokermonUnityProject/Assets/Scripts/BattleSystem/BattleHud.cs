@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;          //Nødvendig å inkludere for UI objektet "Slider"
-public class Script_BattleHud : MonoBehaviour
+public class BattleHud : MonoBehaviour
 {
     public Text nameText;       //variabel for "Name", bruk Text_Name som param
     public Text levelText;      //variabel for "Lvl", bruk Text_Level som param
@@ -18,7 +18,7 @@ public class Script_BattleHud : MonoBehaviour
     * 
     * @param Unit unit - Objekt av Unit type som "Player" og "Enemy"
     **************************************************************************/
-    public void SetHud(Script_Unit unit)
+    public void SetHud(Unit unit)
     {
         nameText.text = unit.unitName;         //Oppdaterer "Name" på BattleHud
         levelText.text = "Lvl " + unit.unitLevel;   //Oppdaterer "Lvl" på ...

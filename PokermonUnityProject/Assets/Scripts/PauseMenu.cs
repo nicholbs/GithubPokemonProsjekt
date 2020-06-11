@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 
 
-public class Script_PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;   //Variabel for om game er paused
     public GameObject pauseMenuUI;          //GameObject for å putte panel inni
@@ -63,7 +63,7 @@ public class Script_PauseMenu : MonoBehaviour
     {      
         pauseMenuUI.SetActive(false);  //setter pause menyen til å være inaktiv
         GameIsPaused = false;        //Setter GameIsPaused variabelen som false
-        player.GetComponent<TileBasedMovementScript>().enabled = true;
+        player.GetComponent<TileBasedMovement>().enabled = true;
         //>Gjør bevegelses scriptet til spilleren aktiv og spiller kan bevege seg
         //Time.timeScale = 1f;            //Denne setter tiden til å bli "normal"
   
@@ -83,7 +83,7 @@ public class Script_PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);                //pause panelet kommer frem
-        player.GetComponent<TileBasedMovementScript>().enabled = false;
+        player.GetComponent<TileBasedMovement>().enabled = false;
    //>Gjør bevegelses scriptet til spilleren inaktiv og spiller kan ikke bevege
         GameIsPaused = true;          //Setter GameIsPaused variabelen som true
 

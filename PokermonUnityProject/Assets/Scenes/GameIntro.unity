@@ -7054,7 +7054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 578, y: 0}
+  m_AnchoredPosition: {x: 578, y: -112}
   m_SizeDelta: {x: 488.01978, y: 91.50371}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580049816
@@ -7380,7 +7380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577.3, y: -111}
+  m_AnchoredPosition: {x: 578.00006, y: 0}
   m_SizeDelta: {x: 488.01978, y: 91.50371}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139445328
@@ -7426,8 +7426,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2012807269}
-        m_MethodName: SavePlayer
+      - m_Target: {fileID: 2012807270}
+        m_MethodName: SavePositionPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -61244,6 +61244,7 @@ GameObject:
   - component: {fileID: 2012807266}
   - component: {fileID: 2012807267}
   - component: {fileID: 2012807268}
+  - component: {fileID: 2012807270}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -61395,7 +61396,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: -0.0006875396, y: -0.0885203}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -61423,10 +61424,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: PlayerCharacter
   unitLevel: 10
-  damage: 20
+  damage: 35
   maxHP: 30
-  currentHP: 40
-  healingAmount: 50
+  currentHP: 30
+  healingAmount: 15
+--- !u!114 &2012807270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012807261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbea46adaf00eed42b9f674c1ae61719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2012807261}
+  playerPreFab: {fileID: 7482701909753950116, guid: 916c7a83b19fdea40a36acf9530a9581,
+    type: 3}
 --- !u!1 &2024800338
 GameObject:
   m_ObjectHideFlags: 0

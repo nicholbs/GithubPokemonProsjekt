@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6533412198593527867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -47.782124, y: 4.9129424, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5267797016706209714}
@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fa7f3a9212cf84786c96f76d5d2fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Player
-  unitLevel: 5
-  damage: 20
-  maxHP: 50
-  currentHP: 40
-  healingAmount: 5
+  unitName: PlayerCharacter
+  unitLevel: 10
+  damage: 35
+  maxHP: 30
+  currentHP: 30
+  healingAmount: 15
 --- !u!1 &7068019978992618733
 GameObject:
   m_ObjectHideFlags: 0

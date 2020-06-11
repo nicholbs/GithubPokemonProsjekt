@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class changeSceneScript : MonoBehaviour
+public class changeScene : MonoBehaviour
 {
 
     /**********************************************************************//**

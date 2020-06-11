@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
-public class Script_Unit : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     public string unitName;
     public int unitLevel;
@@ -47,7 +48,7 @@ public class Script_Unit : MonoBehaviour
     **************************************************************************/
     public void SavePlayer()
     {
-        Script_saveSystem.SavePlayer(this);
+        SaveSystem.SavePlayer(this);
     }
 
 
@@ -59,7 +60,7 @@ public class Script_Unit : MonoBehaviour
     **************************************************************************/
     public void LoadPlayer()
     {
-        Script_playerData data = Script_saveSystem.LoadPlayer();
+        PlayerData data = SaveSystem.LoadPlayer();
         unitLevel = data.level;
         currentHP = data.health;
 
@@ -78,7 +79,7 @@ public class Script_Unit : MonoBehaviour
     }
     public void SaveEnemy()
     {
-        Script_saveSystem.SaveEnemy(this);
+        SaveSystem.SaveEnemy(this);
     }
 
     /**********************************************************************//**
@@ -88,7 +89,7 @@ public class Script_Unit : MonoBehaviour
     **************************************************************************/
     public void LoadEnemy()
     {
-        Script_enemyData data = Script_saveSystem.LoadEnemy();
+        EnemyData data = SaveSystem.LoadEnemy();
         unitLevel = data.level;
         currentHP = data.health;
 
@@ -98,6 +99,5 @@ public class Script_Unit : MonoBehaviour
         position.z = data.position[2];
         transform.position = position;
     }
-
 
 }
