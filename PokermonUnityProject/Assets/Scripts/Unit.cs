@@ -6,6 +6,8 @@ using System.IO;
 public class Unit : MonoBehaviour
 {
     public string unitName;
+    public string catchPhrase;
+
     public int unitLevel;
     public int damage;
     public int maxHP;
@@ -15,7 +17,6 @@ public class Unit : MonoBehaviour
     public float currentEXP;
     public float maxEXP;
     public float xpToGiveIfDefeated;
-    public string catchPhrase;
     //>Variabler som definerer en Unit
 
     /**********************************************************************//**         //SlettMeg
@@ -93,7 +94,6 @@ public class Unit : MonoBehaviour
         unitLevel = data.level;
         currentHP = data.health;
         currentEXP = data.xp;
-        catchPhrase = data.catchPhrase;
        
 
         Vector3 position;

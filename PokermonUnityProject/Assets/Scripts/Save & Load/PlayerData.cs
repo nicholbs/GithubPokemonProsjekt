@@ -10,7 +10,6 @@ public class PlayerData
     public float xp;
     public float[] position;
     public float xpGivenIfDeafeted;
-    public string catchPhrase;
     //>Dataen som er tilgjengelig for oss å lagre til fil
 
 
@@ -25,7 +24,6 @@ public class PlayerData
         health = player.currentHP;
         xp = player.currentEXP;
         xpGivenIfDeafeted = player.xpToGiveIfDefeated;
-        catchPhrase = player.catchPhrase;
 
         position = new float[3];
         position[0] = player.transform.position.x;

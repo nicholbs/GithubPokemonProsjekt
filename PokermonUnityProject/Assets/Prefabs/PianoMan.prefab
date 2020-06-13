@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &102034275249110598
+--- !u!1 &6380853817493265341
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6565645094795239670}
-  - component: {fileID: 4524866043532297504}
+  - component: {fileID: 8322941826184724706}
+  - component: {fileID: 1882696077223786363}
+  - component: {fileID: 54545849206108793}
   m_Layer: 0
-  m_Name: Treant
+  m_Name: Player_Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6565645094795239670
+--- !u!4 &8322941826184724706
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102034275249110598}
+  m_GameObject: {fileID: 6380853817493265341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.52, y: 1.61, z: 0}
-  m_LocalScale: {x: 10.199056, y: 10.199056, z: 10.199056}
+  m_LocalPosition: {x: 0, y: 6.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 284239386426876584}
+  m_Father: {fileID: 7903861563086013629}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4524866043532297504
+--- !u!212 &1882696077223786363
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102034275249110598}
+  m_GameObject: {fileID: 6380853817493265341}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,18 +71,39 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06a287cc97cb64df8a11af10f2352365, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47c351423a2d04741b90b8f0c04c59c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.31, y: 0.35}
+  m_Size: {x: 2.6666667, y: 2.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &5714826702767282722
+--- !u!50 &54545849206108793
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6380853817493265341}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &6931226481608005483
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,48 +111,63 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 284239386426876584}
-  - component: {fileID: 9078056918870090876}
+  - component: {fileID: 7903861563086013629}
+  - component: {fileID: 6722778827713214708}
+  - component: {fileID: 1073938845088652782}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: PianoMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &284239386426876584
+--- !u!4 &7903861563086013629
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714826702767282722}
+  m_GameObject: {fileID: 6931226481608005483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6565645094795239670}
+  - {fileID: 8322941826184724706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9078056918870090876
+--- !u!114 &6722778827713214708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5714826702767282722}
+  m_GameObject: {fileID: 6931226481608005483}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3fa7f3a9212cf84786c96f76d5d2fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy
+  unitName: Piano Transgender Man
+  catchPhrase: I am Transgender
   unitLevel: 10
-  damage: 5
-  maxHP: 100
-  currentHP: 80
-  healingAmount: 0
-  currentEXP: 10
-  maxEXP: 100
-  xpToGiveIfDefeated: 50
+  damage: 35
+  maxHP: 30
+  currentHP: 30
+  healingAmount: 15
+  currentEXP: 40
+  maxEXP: 121
+  xpToGiveIfDefeated: 10
+--- !u!114 &1073938845088652782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931226481608005483}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0015d50b228bf43bb15e97aaba4db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDistance: 16
