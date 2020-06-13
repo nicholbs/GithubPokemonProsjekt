@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour
     public float xpToGiveIfDefeated;
     //>Variabler som definerer en Unit
 
-    /**********************************************************************//**         //SlettMeg
+    /**********************************************************************//**
     * Funksjon for å sjekke om Unit har gått opp i lvl
     * 
     * @param int xp - mengde xp fått fra kamp

@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fa7f3a9212cf84786c96f76d5d2fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Player
+  unitName: PlayerCharacter
   catchPhrase: I am the playa
   unitLevel: 10
   damage: 35
   maxHP: 30
   currentHP: 30
   healingAmount: 15
-  currentEXP: 40
+  currentEXP: 60
   maxEXP: 121
   xpToGiveIfDefeated: 10
 --- !u!114 &-3305850614515924364
