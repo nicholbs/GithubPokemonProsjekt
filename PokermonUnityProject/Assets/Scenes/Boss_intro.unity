@@ -434,9 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d1bf4a6dce2e04b8b69ff9e4ca4575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1892657999670133199, guid: 78bf7b1a636fcc74ea4247cf6a8c2729,
+  playerPrefab: {fileID: 245179822117462211, guid: d34741b2a0bd9014ea72483252e06f32,
     type: 3}
-  bossPrefab: {fileID: 2950179355852611658, guid: 3e783f99dd15e784abb833b9d55903b4,
+  bossPrefab: {fileID: 6533412198593527867, guid: 916c7a83b19fdea40a36acf9530a9581,
     type: 3}
   bossName: {fileID: 1612742055}
   bossCatchPhrase: {fileID: 1103052596}
@@ -715,7 +715,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 8.3560705
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1188,7 +1188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5771812357557875034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.53, y: -5.96, z: 0}
+  m_LocalPosition: {x: 6.72, y: -5.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4875206516783687379}

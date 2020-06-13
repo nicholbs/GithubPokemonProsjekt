@@ -55,7 +55,7 @@ public class Playermovesin : MonoBehaviour
     **************************************************************************/
     IEnumerator MyFunction()
     {
-        yield return new WaitForSeconds(2f);                         //Ventetid
+        yield return new WaitForSeconds(1f);                         //Ventetid
 
         //increment timer once per frame
         currentLerpTime += Time.deltaTime;//Regner ut nåværende tid i bevegelse

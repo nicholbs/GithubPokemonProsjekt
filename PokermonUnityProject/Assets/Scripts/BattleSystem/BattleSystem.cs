@@ -5,8 +5,8 @@ using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
 
-public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
-        //>variabel BattleState for å representere hvilken "State" spillet er i
+//public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
+//        //>variabel BattleState for å representere hvilken "State" spillet er i
   
 public class BattleSystem : MonoBehaviour
 {
@@ -27,8 +27,8 @@ public class BattleSystem : MonoBehaviour
     public Text dialogueText;           //variabel for Text i Image_dialogueBox
 
 
-    public BattleHud playerHUD;    //variabel for BattleHud til "Player"
-    public BattleHud enemyHUD;      //variabel for BattleHud til "Enemy"
+    public BattleHud playerHUD;           //variabel for BattleHud til "Player"
+    public BattleHud enemyHUD;             //variabel for BattleHud til "Enemy"
 
 
     Vector3 gammelPos;
@@ -75,7 +75,7 @@ public class BattleSystem : MonoBehaviour
          */
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         
-        //>Instantiate kopierer ett objekt og kan overloades med ny pos
+           //>Instantiate opretter ett nytt objekt og kan overloades med ny pos
            //>Lager GameObject lik "Unit" (Player) og med pos til BattleStation
 
         playerUnit = playerGO.GetComponent<Unit>();
