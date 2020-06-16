@@ -5,6 +5,8 @@ using System.Numerics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;      //bruke SceneManagement
+
 
 public class BossIntroSystem : MonoBehaviour
 {
@@ -28,8 +30,10 @@ public class BossIntroSystem : MonoBehaviour
 
 
     public float letterPause = 0.1f;
-                                //>Tid mellom hver bokstav som popper på skjerm
+    //>Tid mellom hver bokstav som popper på skjerm
 
+
+    public string sceneToLoad = null;
 
     //Variabler for ReveilSprite()
     public float minimum = 0.0f; //Laveste verdi for farger på en sprite, 0f=0%
@@ -90,6 +94,23 @@ public class BossIntroSystem : MonoBehaviour
 
     sprite = boss.GetComponentInChildren<SpriteRenderer>();
     player.GetComponentInChildren<Playermovesin>().enabled = true;
+        StartCoroutine(GoToBattleScene());
+    }
+
+
+    IEnumerator GoToBattleScene()
+    {
+        if (sceneToLoad != null)
+        {
+            yield return new WaitForSeconds(8f);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+        }
     }
 
     /**********************************************************************//**

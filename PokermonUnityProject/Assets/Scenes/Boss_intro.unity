@@ -444,6 +444,7 @@ MonoBehaviour:
   playerPos: {fileID: 750987226635252382}
   bossShadow: {fileID: 3029127159248916810}
   letterPause: 0.05
+  sceneToLoad: battle
   minimum: 0
   maximum: 1
   duration: 5

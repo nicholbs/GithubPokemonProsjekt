@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     /**********************************************************************//**
-    * Funksjon som blir kalt en gang hver frame.
+    * Funksjon som blir kalt 50 ish ganger hver frame.
     *
     * Antall ganger tilkalt er dynamisk og avhenger av frameRate. Er derfor
     * ypperlig for å hente inn input fra brukeren.

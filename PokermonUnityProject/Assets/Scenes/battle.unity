@@ -3275,6 +3275,7 @@ MonoBehaviour:
   dialogueText: {fileID: 330361642}
   playerHUD: {fileID: 1086443763}
   enemyHUD: {fileID: 1733255160}
+  sceneToLoad: GameIntro
 --- !u!1 &1739918044
 GameObject:
   m_ObjectHideFlags: 0

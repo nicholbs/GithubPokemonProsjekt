@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
         //>variabel BattleState for å representere hvilken "State" spillet er i
@@ -34,6 +34,8 @@ public class V2_BattleSystem : MonoBehaviour
     GameObject boss;
     //>Variabel for Boss som blir "instantiatet" i scene under runtime
 
+    public string sceneToLoad = null;
+
 
     /**********************************************************************//**
     * Funksjon som blir kalt før første frame oppdateringen, altså med en gang.
@@ -44,6 +46,18 @@ public class V2_BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());//For å lage ventetid bruker vi Coroutine
     }
 
+
+    /**********************************************************************//**
+    * Funksjon for å gjøre klar kampen. Oppdatere Hud, legge til Spillere.. osv
+    * 
+    * Funksjon har ventetid og er derfor Coroutine.
+    * Funksjonen oppretter to objecter (enemy og spiller) under "runtime" som
+    * blir plassert på battle stasjonene med oppdatert info på hver sin HUD.
+    * Funksjonen gjør det deretter til spilleren sin tur.
+    *
+    * @see void Script_BattleHud.SetHud(Unit unit)-oppdatere tekst på BattleHud
+    * @see void Script_BattleSystem.PlayerTurn() - oppdaterer Image_dialogueBox
+    **************************************************************************/
     IEnumerator SetupBattle()
     {
         player = Instantiate(playerPrefab, playerPos);
@@ -78,17 +92,17 @@ public class V2_BattleSystem : MonoBehaviour
 
 
     /**********************************************************************//**
-* Funksjon for angrep til "Player", Player vinner eller Enemy får sin tur.
-* 
-* Funksjonen sjekker om "Enemy" dør av å ta "Player" sin damage. 
-* Funksjon har ventetid og er derfor Coroutine.
-* Funksjon oppdaterer BattleState til Won om "Enemy" dør eller til Enemy
-* sin tur dersom ikke.
-* 
-* @see Unit.TakeDamage(int dmg) - sjekker om "Unit" sin hp blir 0 etter dmg
-* @see void Script_BattleHud.SetHp(int hp) - oppdater BattleHud health
-* @see IEnumerator Script_BattleSystem.EnemyTurn() - nesten identisk...
-**************************************************************************/
+    * Funksjon for angrep til "Player", Player vinner eller Enemy får sin tur.
+    * 
+    * Funksjonen sjekker om "Enemy" dør av å ta "Player" sin damage. 
+    * Funksjon har ventetid og er derfor Coroutine.
+    * Funksjon oppdaterer BattleState til Won om "Enemy" dør eller til Enemy
+    * sin tur dersom ikke.
+    * 
+    * @see Unit.TakeDamage(int dmg) - sjekker om "Unit" sin hp blir 0 etter dmg
+    * @see void Script_BattleHud.SetHp(int hp) - oppdater BattleHud health
+    * @see IEnumerator Script_BattleSystem.EnemyTurn() - nesten identisk...
+    **************************************************************************/
     IEnumerator PlayerAttack()
     {
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
@@ -116,17 +130,17 @@ public class V2_BattleSystem : MonoBehaviour
 
 
     /**********************************************************************//**
-* Funksjon for å heale "Player". Oppdaterer Image_DialogueBox og Enemy tur.
-* 
-* Funksjonen healer "Player".
-* Oppdaterer Image_DialogueBox.
-* Funksjon har ventetid og er derfor Coroutine.
-* Funksjon oppdaterer BattleState til ENEMYTURN.
-* 
-* @see void Unit.Heal(int amount) - healer player basert på healingAmount
-* @see void Script_BattleHud.SetHp(int hp) - oppdater BattleHud health
-* @see IEnumerator Script_BattleSystem.EnemyTurn() - Enemy sin tur, angripe
-**************************************************************************/
+    * Funksjon for å heale "Player". Oppdaterer Image_DialogueBox og Enemy tur.
+    * 
+    * Funksjonen healer "Player".
+    * Oppdaterer Image_DialogueBox.
+    * Funksjon har ventetid og er derfor Coroutine.
+    * Funksjon oppdaterer BattleState til ENEMYTURN.
+    * 
+    * @see void Unit.Heal(int amount) - healer player basert på healingAmount
+    * @see void Script_BattleHud.SetHp(int hp) - oppdater BattleHud health
+    * @see IEnumerator Script_BattleSystem.EnemyTurn() - Enemy sin tur, angripe
+    **************************************************************************/
     IEnumerator PlayerHeal()
     {
         playerUnit.Heal(playerUnit.healingAmount);
@@ -241,6 +255,24 @@ public class V2_BattleSystem : MonoBehaviour
             enemyHUD.SetXp(playerUnit.xpToGiveIfDefeated);
              //OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab          Avkommenter meg
         }
+        StartCoroutine(GoToOverworld());
+    
     }
 
+
+
+    IEnumerator GoToOverworld()
+    {
+        if (sceneToLoad != null)
+        {
+            yield return new WaitForSeconds(4f);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+        }
+    }
 }

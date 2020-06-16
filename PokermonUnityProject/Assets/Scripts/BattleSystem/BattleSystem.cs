@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
 
