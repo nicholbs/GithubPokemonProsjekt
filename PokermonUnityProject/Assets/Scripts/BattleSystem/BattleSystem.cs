@@ -223,7 +223,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You won the battle!";
             //Unit temp =
-            playerHUD.SetXp(enemyUnit.xpToGiveIfDefeated);                      //oppdater xpslider
+            StartCoroutine(playerHUD.SetXP(enemyUnit.xpToGiveIfDefeated));                      //oppdater xpslider
             playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
             //playerPrefab.GetComponent<Unit>().currentEXP = temp.currentEXP;
             //playerPrefab.GetComponent<Unit>().maxEXP = temp.maxEXP;
@@ -234,7 +234,7 @@ public class BattleSystem : MonoBehaviour
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "You are defeated!";
-            enemyHUD.SetXp(playerUnit.xpToGiveIfDefeated);
+            StartCoroutine(enemyHUD.SetXP(playerUnit.xpToGiveIfDefeated));
              OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab
         }
     }

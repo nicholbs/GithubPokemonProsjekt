@@ -107,6 +107,7 @@ public class Unit : MonoBehaviour
         maxEXP = data.maxXP;
         xpToGiveIfDefeated = data.xpGivenIfDeafeted;
 
+
         Vector3 position;
         position.x = data.position[0];
         position.y = data.position[1];
@@ -118,9 +119,40 @@ public class Unit : MonoBehaviour
         transform.position = position;
 
 
+        /*
+         * Oppdaterer valgt player prefab nedenfor
+         */
 
-       
+        GameObject playerPrefab = Resources.Load<GameObject>(
+                                                 StaticClass.NamePlayerPrefab);
 
+
+        playerPrefab.GetComponent<Unit>().unitName = data.unitName;
+
+        playerPrefab.GetComponent<Unit>().catchPhrase = data.unitCatchPhrase;
+
+        playerPrefab.GetComponent<Unit>().unitLevel = data.level;
+
+        playerPrefab.GetComponent<Unit>().damage = data.damage;
+
+        playerPrefab.GetComponent<Unit>().maxHP = data.maxHealth;
+
+        playerPrefab.GetComponent<Unit>().currentHP = data.currentHP;
+
+        playerPrefab.GetComponent<Unit>().healingAmount = data.unitHealing;
+
+
+        playerPrefab.GetComponent<Unit>().currentEXP = data.currentXP;
+
+        playerPrefab.GetComponent<Unit>().maxEXP = data.maxXP;
+
+
+        playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
+                                                        data.xpGivenIfDeafeted;
+
+
+        playerPrefab.GetComponent<Transform>().position = position;
+        playerPrefab.GetComponent<Transform>().Find("Player_Pos").position = position;
 
 
 

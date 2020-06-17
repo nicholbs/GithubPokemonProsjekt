@@ -279,23 +279,23 @@ public class V2_BattleSystem : MonoBehaviour
         if (state == BattleState.WON)
         {
             dialogueText.text = "You won the battle!";
-            //Unit temp =
-            playerHUD.SetXp(enemyUnit.xpToGiveIfDefeated);                      //oppdater xpslider
+
+            StartCoroutine(playerHUD.SetXP(enemyUnit.xpToGiveIfDefeated));                      //oppdater xpslider
             playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
-            playerHUD.SetHud(playerUnit);           //Oppdaterer lvl dersom player lvlet
-            //playerPrefab.GetComponent<Unit>().currentEXP = temp.currentEXP;
-            //playerPrefab.GetComponent<Unit>().maxEXP = temp.maxEXP;
-            OppdaterPrefabPlayer(player);           //Oppdaterer all data fra kampen til prefab           Avkommenter meg
+            //playerHUD.SetHud(playerUnit);           //Oppdaterer lvl dersom player lvlet
+
+            OppdaterPrefabPlayer(player);           //Oppdaterer all data fra kampen til prefab      
 
 
         }
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "You are defeated!";
-            enemyHUD.SetXp(playerUnit.xpToGiveIfDefeated);
+
+            StartCoroutine(enemyHUD.SetXP(playerUnit.xpToGiveIfDefeated));
             enemyUnit.currentEXP = playerUnit.LevelUpCheck(playerUnit.xpToGiveIfDefeated);
-            enemyHUD.SetHud(enemyUnit);           //Oppdaterer lvl dersom enemy lvlet
-            OppdaterPrefabEnemy(boss);           //Oppdaterer all data fra kampen til prefab          Avkommenter meg
+            //enemyHUD.SetHud(enemyUnit);           //Oppdaterer lvl dersom enemy lvlet
+            OppdaterPrefabEnemy(boss);           //Oppdaterer all data fra kampen til prefab     
         }
         StartCoroutine(GoToOverworld());
     
@@ -307,7 +307,7 @@ public class V2_BattleSystem : MonoBehaviour
     {
         if (sceneToLoad != null)
         {
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(5f);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
 
             while (!asyncLoad.isDone)

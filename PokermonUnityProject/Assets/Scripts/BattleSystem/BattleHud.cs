@@ -26,9 +26,11 @@ public class BattleHud : MonoBehaviour
         levelText.text = "Lvl " + unit.unitLevel;   //Oppdaterer "Lvl" på ...
 
         hpSlider.maxValue = unit.maxHP;  //Oppdaterer health slideren sin MaxHp
+        hpSlider.minValue = 0;
         hpSlider.value = unit.currentHP;//Oppdaterer health slider verdi på ...
 
-        xpSlider.maxValue = unit.maxEXP;        //Oppdaterer XP slider sin MaxXP
+        xpSlider.maxValue = unit.maxEXP;       //Oppdaterer XP slider sin MaxXP
+        xpSlider.minValue = 0;
         xpSlider.value = unit.currentEXP;    //Oppdaterer XP slider verdi på ...
     }
 
@@ -56,10 +58,29 @@ public class BattleHud : MonoBehaviour
     * @param int xp - int fra en Unit som "Player" eller "Enemy"
     * @see IEnumerator LvlSliderWaitTime(int xp) - for loop oppdaterer xpSlider
     **************************************************************************/
-    public void SetXp(float xp)
+    public IEnumerator SetXP(float xp)
     {
-        StartCoroutine(LvlSliderWaitTime(xp));
+        while (xp != 0)
+        {
+        Debug.Log(xpSlider.value);
+        yield return new WaitForSeconds(0.02f);
+            if (xpSlider.value < xpSlider.maxValue)
+                xpSlider.value++;
+            else if (xpSlider.value == xpSlider.maxValue)
+            {
+                xpSlider.value = 0;
+                xpSlider.value++;
+            }
+            xp--;
+        }
+
+        
     }
+    
+    //public void SetXp(float xp)
+    //{
+    //    StartCoroutine(LvlSliderWaitTime(xp));
+    //}
 
 
     /**********************************************************************//**
@@ -72,17 +93,22 @@ public class BattleHud : MonoBehaviour
     * @see void sjekkOmLvl() - sjekker om karakteren har lvlet, dersom karakter
     * har lvlet blir xp bar satt til null og max xp ganget med 110% prosent.
     **************************************************************************/
-    IEnumerator LvlSliderWaitTime(float xp)
-    {
-        WaitForSeconds wait = new WaitForSeconds(0.02f);
-        for (int i = 0; i <= xp; i++)
-        {
-            xpSlider.value += 1;
-            SjekkOmLvl();
-            yield return wait;
-        }
+    //IEnumerator LvlSliderWaitTime(float xp)
+    //{
+    //    //WaitForSeconds wait = new WaitForSeconds(0.2f);
+
+
+    //    for (int i = 0; i <= xp; i++)
+    //    {
+            
+    //        if (xpSlider.value <= xpSlider.maxValue)
+    //         xpSlider.value += 0.1f;
+
+    //        StartCoroutine(SjekkOmLvl());
+    //    yield return new WaitForSeconds(1f);
+    //    }
        
-    }
+    //}
 
     /**********************************************************************//**
    * Funksjon som oppdaterer xp slider på BattleHud dersom karakter har lvlet.
@@ -91,14 +117,16 @@ public class BattleHud : MonoBehaviour
    * Funksjonen nullstiller xp bar dersom lvl og øker max xp for neste lvl.
    * Max xp økes med 10%.
    **************************************************************************/
-    public void SjekkOmLvl()
-    {
-        float differanseIMaxXP = 10f;
-        if (xpSlider.value >= xpSlider.maxValue)
-        {
-            xpSlider.value = 0;
-            xpSlider.maxValue += xpSlider.maxValue / differanseIMaxXP;
-        }
-    }
+    //IEnumerator SjekkOmLvl()
+    //{
+    //    //float differanseIMaxXP = 10f;
+        
+    //    if (xpSlider.value == xpSlider.maxValue)
+    //    {
+    //        xpSlider.maxValue += 10f;
+    //        xpSlider.value = 0f;
+    //    }
+    //    yield return new WaitForSeconds(1f);
+    //}
 
 }

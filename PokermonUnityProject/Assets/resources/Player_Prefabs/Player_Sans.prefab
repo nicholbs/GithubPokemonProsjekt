@@ -229,7 +229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3481061164992555646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 1.6851711, y: 0.92300415, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2593677642132897271}
@@ -252,12 +252,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Executioner Smough
   catchPhrase: Mark my words, Ashen One... You remain among the accursed..
-  unitLevel: 10
+  unitLevel: 11
   damage: 30
   maxHP: 50
-  currentHP: 50
+  currentHP: 30
   healingAmount: 15
-  currentEXP: 50
+  currentEXP: 0
   maxEXP: 100
   xpToGiveIfDefeated: 10
 --- !u!61 &3481061164992555586
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3481061164992555646}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 963f1e45f406363498fd89b54cef860a, type: 3}
   m_Name: 
