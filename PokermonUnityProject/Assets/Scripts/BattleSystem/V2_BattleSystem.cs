@@ -12,8 +12,9 @@ public class V2_BattleSystem : MonoBehaviour
 {
     public BattleState state;  //Variabel for "State" i GameObject_BattleSystem
 
-    public GameObject playerPrefab;//variabel for Unit, bruk "Player" som param
-    public GameObject enemyPrefab;  //variabel for Unit, bruk "Enemy" som param
+    //public GameObject playerPrefab;//variabel for Unit, bruk "Player" som param
+    //public GameObject enemyPrefab;  //variabel for Unit, bruk "Enemy" som param
+
 
     public Transform playerPos;
                    //>variabel for pos til battleStation hvor "Player" skal stå
@@ -60,8 +61,46 @@ public class V2_BattleSystem : MonoBehaviour
     **************************************************************************/
     IEnumerator SetupBattle()
     {
-        player = Instantiate(playerPrefab, playerPos);
-        boss = Instantiate(enemyPrefab, enemyPos);
+        //player = Instantiate(playerPrefab, playerPos);
+        //boss = Instantiate(enemyPrefab, enemyPos);
+
+        player = Instantiate(Resources.Load<GameObject>(
+                                     StaticClass.NamePlayerPrefab), playerPos);
+        /*
+         * Instantiater, altså lager en ny player GameObject fra Resources.
+         * Resouces.load loader object fra path.
+         * NB! Resources starter allerede fra prosjektet sin Asseth path.
+         */
+        player.GetComponent<Transform>().position = playerPos.position;
+
+        boss = Instantiate(Resources.Load<GameObject>(
+                                       StaticClass.NameEnemyPrefab), enemyPos);
+        boss.GetComponent<Transform>().position = enemyPos.position;
+
+        /*
+         * Instantiater, altså lager en ny player GameObject fra Resources.
+         * Resouces.load loader object fra path.
+         * NB! Resources starter allerede fra prosjektet sin Asseth path.
+         */
+
+
+
+        /*
+         * Tar på prefab sin cinematic sprite
+         * Ikke i bruk( Tar av prefab sine overWorld sprite) siden prefab
+         * starter med alle componenter som ikke "enabled".
+         */
+        GameObject cinematicBoss = boss.GetComponent<Transform>().Find("cinematic").gameObject;
+        cinematicBoss.GetComponent<SpriteRenderer>().enabled = true;
+
+        GameObject cinematicPlayer = player.GetComponent<Transform>().Find("cinematic").gameObject;
+        cinematicPlayer.GetComponent<SpriteRenderer>().enabled = true;
+        //boss.GetComponent<SpriteRenderer>().enabled = false;
+        //player.GetComponent<SpriteRenderer>().enabled = false;  
+
+
+
+
         /*
         * Lager player og boss objecter "under" 
         * runtime utifra prefab og med ny pos fra andre parameter
@@ -69,7 +108,7 @@ public class V2_BattleSystem : MonoBehaviour
         playerUnit = player.GetComponent<Unit>();
         enemyUnit = boss.GetComponent<Unit>();
 
-        player.GetComponent<Playermovesin>().enabled = true;
+        player.GetComponentInChildren<Playermovesin>().enabled = true;
         dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
        //>Setter teksten i Image_DialogueBox til "A wild ..., altså intro tekst
 
@@ -243,17 +282,20 @@ public class V2_BattleSystem : MonoBehaviour
             //Unit temp =
             playerHUD.SetXp(enemyUnit.xpToGiveIfDefeated);                      //oppdater xpslider
             playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
+            playerHUD.SetHud(playerUnit);           //Oppdaterer lvl dersom player lvlet
             //playerPrefab.GetComponent<Unit>().currentEXP = temp.currentEXP;
             //playerPrefab.GetComponent<Unit>().maxEXP = temp.maxEXP;
-            //OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab           Avkommenter meg
-           
-            
+            OppdaterPrefabPlayer(player);           //Oppdaterer all data fra kampen til prefab           Avkommenter meg
+
+
         }
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "You are defeated!";
             enemyHUD.SetXp(playerUnit.xpToGiveIfDefeated);
-             //OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab          Avkommenter meg
+            enemyUnit.currentEXP = playerUnit.LevelUpCheck(playerUnit.xpToGiveIfDefeated);
+            enemyHUD.SetHud(enemyUnit);           //Oppdaterer lvl dersom enemy lvlet
+            OppdaterPrefabEnemy(boss);           //Oppdaterer all data fra kampen til prefab          Avkommenter meg
         }
         StartCoroutine(GoToOverworld());
     
@@ -275,4 +317,90 @@ public class V2_BattleSystem : MonoBehaviour
 
         }
     }
+
+    void OppdaterPrefabPlayer(GameObject objectToUpdate)
+    {
+        GameObject playerPrefab = Resources.Load<GameObject>(StaticClass.NamePlayerPrefab);
+        playerPrefab.GetComponent<Unit>().currentEXP = objectToUpdate.GetComponent<Unit>().currentEXP;
+
+      
+
+        playerPrefab.GetComponent<Unit>().unitName =
+                                  objectToUpdate.GetComponent<Unit>().unitName;
+        playerPrefab.GetComponent<Unit>().catchPhrase =
+                               objectToUpdate.GetComponent<Unit>().catchPhrase;
+
+        playerPrefab.GetComponent<Unit>().unitLevel =
+                                 objectToUpdate.GetComponent<Unit>().unitLevel;
+
+        playerPrefab.GetComponent<Unit>().damage =
+                                    objectToUpdate.GetComponent<Unit>().damage;
+
+        playerPrefab.GetComponent<Unit>().maxHP =
+                                     objectToUpdate.GetComponent<Unit>().maxHP;
+
+        playerPrefab.GetComponent<Unit>().currentHP =
+                                 objectToUpdate.GetComponent<Unit>().currentHP;
+
+        playerPrefab.GetComponent<Unit>().healingAmount =
+                             objectToUpdate.GetComponent<Unit>().healingAmount;
+
+
+        playerPrefab.GetComponent<Unit>().currentEXP =
+                               objectToUpdate.GetComponent<Unit>().currentEXP;
+
+        playerPrefab.GetComponent<Unit>().maxEXP =
+                                    objectToUpdate.GetComponent<Unit>().maxEXP;
+
+
+        playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
+                        objectToUpdate.GetComponent<Unit>().xpToGiveIfDefeated;
+
+
+
+    }
+
+
+    void OppdaterPrefabEnemy(GameObject objectToUpdate)
+    {
+        GameObject playerPrefab = Resources.Load<GameObject>(StaticClass.NameEnemyPrefab);
+        playerPrefab.GetComponent<Unit>().currentEXP = objectToUpdate.GetComponent<Unit>().currentEXP;
+
+
+
+        playerPrefab.GetComponent<Unit>().unitName =
+                                  objectToUpdate.GetComponent<Unit>().unitName;
+        playerPrefab.GetComponent<Unit>().catchPhrase =
+                               objectToUpdate.GetComponent<Unit>().catchPhrase;
+
+        playerPrefab.GetComponent<Unit>().unitLevel =
+                                 objectToUpdate.GetComponent<Unit>().unitLevel;
+
+        playerPrefab.GetComponent<Unit>().damage =
+                                    objectToUpdate.GetComponent<Unit>().damage;
+
+        playerPrefab.GetComponent<Unit>().maxHP =
+                                     objectToUpdate.GetComponent<Unit>().maxHP;
+
+        playerPrefab.GetComponent<Unit>().currentHP =
+                                 objectToUpdate.GetComponent<Unit>().currentHP;
+
+        playerPrefab.GetComponent<Unit>().healingAmount =
+                             objectToUpdate.GetComponent<Unit>().healingAmount;
+
+
+        playerPrefab.GetComponent<Unit>().currentEXP =
+                               objectToUpdate.GetComponent<Unit>().currentEXP;
+
+        playerPrefab.GetComponent<Unit>().maxEXP =
+                                    objectToUpdate.GetComponent<Unit>().maxEXP;
+
+
+        playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
+                        objectToUpdate.GetComponent<Unit>().xpToGiveIfDefeated;
+
+
+
+    }
+
 }

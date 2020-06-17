@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class Unit : MonoBehaviour
 {
@@ -88,19 +89,43 @@ public class Unit : MonoBehaviour
     *
     * @see Script_saveSystem.LoadPlayer() - Unit (player) som lagres
     **************************************************************************/
-    public void LoadPlayer()
+    public void LoadPlayer(GameObject Player_Pos)
     {
         PlayerData data = SaveSystem.LoadPlayer();
+        unitName = data.unitName;
+        catchPhrase = data.unitCatchPhrase;
+
         unitLevel = data.level;
-        currentHP = data.health;
-        currentEXP = data.xp;
-       
+        damage = data.level;
+
+        currentHP = data.currentHP;
+        maxHP = data.maxHealth;
+
+        healingAmount = data.unitHealing;
+
+        currentEXP = data.currentXP;
+        maxEXP = data.maxXP;
+        xpToGiveIfDefeated = data.xpGivenIfDeafeted;
 
         Vector3 position;
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
+
+
+
+        Player_Pos.GetComponent<Transform>().position = position;
         transform.position = position;
+
+
+
+       
+
+
+
+
+
+    }
 
 
     /**********************************************************************//**
@@ -108,7 +133,6 @@ public class Unit : MonoBehaviour
     *
     * @see Script_saveSystem.SaveEnemy(Script_Unit) - Unit (enemy) som lagres
     **************************************************************************/
-    }
     public void SaveEnemy()
     {
         SaveSystem.SaveEnemy(this);

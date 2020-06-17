@@ -20,7 +20,7 @@ public class InteractionObject : MonoBehaviour
     * Funksjonen gjør per nå at objecter skifter zone til gitt som parameter.
     **************************************************************************/
     IEnumerator DoInteraction()
-    {
+    {  
 
         if (sceneToLoad != null)          //Sjekker om det er gitt et parameter
         { 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveAndLoadPosition : MonoBehaviour
 {
-    public GameObject player;                          //variabel for spilleren
+    private readonly GameObject player;
     public Unit playerPreFab;     //variabel for prefab, template for spilleren
 
     /**********************************************************************//**
@@ -17,8 +17,12 @@ public class SaveAndLoadPosition : MonoBehaviour
     **************************************************************************/
     private void Start()
     {
-        player.GetComponent<Transform>().position = 
-                               playerPreFab.GetComponent<Transform>().position;
+
+
+
+
+        //player.GetComponent<Transform>().position = 
+        //                       playerPreFab.GetComponent<Transform>().position;
     }
 
     /**********************************************************************//**
@@ -36,27 +40,31 @@ public class SaveAndLoadPosition : MonoBehaviour
     **************************************************************************/
     public void SavePositionPlayer()
     {
-        playerPreFab.GetComponent<Transform>().position = 
+
+
+        playerPreFab.GetComponent<Transform>().position =
                                      player.GetComponent<Transform>().position;
 
-        playerPreFab.GetComponent<Unit>().unitName = 
+        playerPreFab.GetComponent<Unit>().unitName =
                                           player.GetComponent<Unit>().unitName;
 
-        playerPreFab.GetComponent<Unit>().unitLevel = 
+        playerPreFab.GetComponent<Unit>().unitLevel =
                                          player.GetComponent<Unit>().unitLevel;
 
-        playerPreFab.GetComponent<Unit>().damage = 
+        playerPreFab.GetComponent<Unit>().damage =
                                             player.GetComponent<Unit>().damage;
 
-        playerPreFab.GetComponent<Unit>().maxHP = 
+        playerPreFab.GetComponent<Unit>().maxHP =
                                              player.GetComponent<Unit>().maxHP;
 
-        playerPreFab.GetComponent<Unit>().currentHP = 
+        playerPreFab.GetComponent<Unit>().currentHP =
                                          player.GetComponent<Unit>().currentHP;
 
-        playerPreFab.GetComponent<Unit>().healingAmount = 
+        playerPreFab.GetComponent<Unit>().healingAmount =
                                      player.GetComponent<Unit>().healingAmount;
-       
-   
+
+
+
+
     }
 }

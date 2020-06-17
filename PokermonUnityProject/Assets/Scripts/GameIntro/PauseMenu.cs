@@ -63,7 +63,7 @@ public class PauseMenu : MonoBehaviour
     {      
         pauseMenuUI.SetActive(false);  //setter pause menyen til å være inaktiv
         GameIsPaused = false;        //Setter GameIsPaused variabelen som false
-        player.GetComponent<TileBasedMovement>().enabled = true;
+        player.GetComponent<GridBasedMovement>().enabled = true;
         //>Gjør bevegelses scriptet til spilleren aktiv og spiller kan bevege seg
         //Time.timeScale = 1f;            //Denne setter tiden til å bli "normal"
   
@@ -83,7 +83,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);                //pause panelet kommer frem
-        player.GetComponent<TileBasedMovement>().enabled = false;
+        player.GetComponent<GridBasedMovement>().enabled = false;
    //>Gjør bevegelses scriptet til spilleren inaktiv og spiller kan ikke bevege
         GameIsPaused = true;          //Setter GameIsPaused variabelen som true
 

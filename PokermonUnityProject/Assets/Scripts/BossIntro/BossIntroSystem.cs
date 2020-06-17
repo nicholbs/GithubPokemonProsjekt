@@ -10,8 +10,8 @@ using UnityEngine.SceneManagement;      //bruke SceneManagement
 
 public class BossIntroSystem : MonoBehaviour
 {
-    public GameObject playerPrefab;     //bruk prefab for spiller som parameter
-    public GameObject bossPrefab;          //bruk prefab for Boss som parameter
+    //public GameObject playerPrefab;     //bruk prefab for spiller som parameter
+    //public GameObject bossPrefab;          //bruk prefab for Boss som parameter
 
     public Text bossName;           //bruk Text som skal bli lik boss sitt navn
     public Text bossCatchPhrase;
@@ -67,20 +67,59 @@ public class BossIntroSystem : MonoBehaviour
     private void Start()
     {
     startTime = Time.time;
-          //>Sekunder det tok for spillet ble startet til første frame "loadet"
+        //>Sekunder det tok for spillet ble startet til første frame "loadet"
 
-    player = Instantiate(playerPrefab, playerPos);   
-    boss = Instantiate(bossPrefab, bossPos);    
-                      /*
-                      * Lager player og boss objecter "under" 
-                      * runtime utifra prefab og med ny pos fra andre parameter
-                      */
+        //player = Instantiate(playerPrefab, playerPos);   
+        //boss = Instantiate(bossPrefab, bossPos);    
+        //                  /*
+        //                  * Lager player og boss objecter "under" 
+        //                  * runtime utifra prefab og med ny pos fra andre parameter
+        //                  */
+
+
+        player = Instantiate(Resources.Load<GameObject>(
+                                     StaticClass.NamePlayerPrefab), playerPos);
+        //player.GetComponent<Transform>().position = new UnityEngine.Vector3(0, 0, 0);
+        player.GetComponent<Transform>().position = playerPos.position;
+
+
+
+        boss = Instantiate(Resources.Load<GameObject>(
+                                        StaticClass.NameEnemyPrefab), bossPos);
+        //boss.GetComponent<Transform>().position = new UnityEngine.Vector3(0, 0, 0);
+        boss.GetComponent<Transform>().position = bossPos.position;
+
+        /*
+         * Instantiater, altså lager en ny player GameObject fra Resources.
+         * Resouces.load loader object fra path.
+         * NB! Resources starter allerede fra prosjektet sin Asseth path.
+         */
+
+        GameObject cinematicBoss = boss.GetComponent<Transform>().Find("cinematic").gameObject; //child til boss prefab
+        GameObject cinematicPlayer = player.GetComponent<Transform>().Find("cinematic").gameObject; //child til player prefab
 
         
-    bossShadow.sprite = boss.GetComponentInChildren<SpriteRenderer>().sprite;
-                           //>Oppdaterer skyggefigur fra Boss prefab sin sprite
+        
 
-    bossName.text = boss.GetComponent<Unit>().unitName;
+        /*
+         * Tar på prefab sin cinematic sprite
+         * Ikke i bruk( Tar av prefab sine overWorld sprite) siden prefab
+         * starter med alle componenter som ikke "enabled"
+         */
+
+        cinematicBoss.GetComponent<SpriteRenderer>().enabled = true;    
+        cinematicPlayer.GetComponent<SpriteRenderer>().enabled = true;    
+        
+        //boss.GetComponent<SpriteRenderer>().enabled = false;
+        //player.GetComponent<SpriteRenderer>().enabled = false;       
+
+
+
+
+       bossShadow.sprite = cinematicBoss.GetComponent<SpriteRenderer>().sprite;
+                      //>Oppdaterer skyggefigur lik prefab sitt barn sin sprite
+
+        bossName.text = boss.GetComponent<Unit>().unitName;
                                  //>Oppdaterer Text sin text til Boss sitt navn
 
     bossCatchPhrase.text = '"' + boss.GetComponent<Unit>().catchPhrase + '"';
@@ -92,7 +131,7 @@ public class BossIntroSystem : MonoBehaviour
     bossCatchPhrase.enabled = false;       //Tar av text, vises da ikke i scene
     StartCoroutine(VentLitt()); //Funksjon for å ta på text og "popp" bokstaver
 
-    sprite = boss.GetComponentInChildren<SpriteRenderer>();
+    sprite = cinematicBoss.GetComponent<SpriteRenderer>();
     player.GetComponentInChildren<Playermovesin>().enabled = true;
         StartCoroutine(GoToBattleScene());
     }

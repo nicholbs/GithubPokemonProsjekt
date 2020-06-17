@@ -5,11 +5,23 @@ using UnityEngine;
 [System.Serializable]                           //Betyr at vi kan lagre som fil
 public class PlayerData
 {
+    public string unitName;
+    public string unitCatchPhrase;
+
     public int level;
-    public int health;
-    public float xp;
-    public float[] position;
+    public int damage;
+
+    public int maxHealth;
+    public int currentHP;
+
+    public int unitHealing;
+
+    public float currentXP;
+    public float maxXP;
+
     public float xpGivenIfDeafeted;
+
+    public float[] position;
     //>Dataen som er tilgjengelig for oss å lagre til fil
 
 
@@ -20,9 +32,20 @@ public class PlayerData
     * @param Script_Unit player - medsendt Unit (player) vi henter data fra
     **************************************************************************/
     public PlayerData (Unit player) {
+        unitName = player.unitName;
+        unitCatchPhrase = player.catchPhrase;
+
         level = player.unitLevel;
-        health = player.currentHP;
-        xp = player.currentEXP;
+        damage = player.damage;
+
+        maxHealth = player.maxHP;
+        currentHP = player.currentHP;
+
+        unitHealing = player.healingAmount;
+
+        currentXP = player.currentEXP;
+        maxXP = player.maxEXP;
+
         xpGivenIfDeafeted = player.xpToGiveIfDefeated;
 
         position = new float[3];
