@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hvilkenPlayer: Player_Sans
-  hvilkenBoss: Black_Knight
+  hvilkenBoss: Gaynor
 --- !u!4 &1307911442
 Transform:
   m_ObjectHideFlags: 0
