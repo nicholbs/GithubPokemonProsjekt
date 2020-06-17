@@ -141,7 +141,7 @@ public class BossIntroSystem : MonoBehaviour
     {
         if (sceneToLoad != null)
         {
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForSeconds(7f);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
 
             while (!asyncLoad.isDone)

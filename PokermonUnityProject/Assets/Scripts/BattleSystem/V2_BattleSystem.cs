@@ -356,7 +356,7 @@ public class V2_BattleSystem : MonoBehaviour
         playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
                         objectToUpdate.GetComponent<Unit>().xpToGiveIfDefeated;
 
-
+        playerPrefab.GetComponent<Unit>().SavePlayer();     //Lagre til fil
 
     }
 
@@ -400,6 +400,7 @@ public class V2_BattleSystem : MonoBehaviour
                         objectToUpdate.GetComponent<Unit>().xpToGiveIfDefeated;
 
 
+        playerPrefab.GetComponent<Unit>().SavePlayer(); //Lagre til fil
 
     }
 

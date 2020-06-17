@@ -7,8 +7,8 @@ using System;
 
 public static class SaveSystem   
 {
-    public static string playerPath = "/player.happyDays";    //path til player
-    public static string enemyPath = "/enemy.happyDays";       //path til Enemy
+    public static string playerPath = StaticClass.PlayerFilePath + ".happyDays";    //path til player
+    public static string enemyPath = StaticClass.EnemyFilePath + ".happyDays";       //path til Enemy
 
 
     /**********************************************************************//**

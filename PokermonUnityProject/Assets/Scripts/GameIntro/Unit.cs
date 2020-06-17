@@ -128,31 +128,25 @@ public class Unit : MonoBehaviour
 
 
         playerPrefab.GetComponent<Unit>().unitName = data.unitName;
-
         playerPrefab.GetComponent<Unit>().catchPhrase = data.unitCatchPhrase;
 
         playerPrefab.GetComponent<Unit>().unitLevel = data.level;
-
         playerPrefab.GetComponent<Unit>().damage = data.damage;
 
         playerPrefab.GetComponent<Unit>().maxHP = data.maxHealth;
-
         playerPrefab.GetComponent<Unit>().currentHP = data.currentHP;
 
         playerPrefab.GetComponent<Unit>().healingAmount = data.unitHealing;
 
-
         playerPrefab.GetComponent<Unit>().currentEXP = data.currentXP;
-
         playerPrefab.GetComponent<Unit>().maxEXP = data.maxXP;
-
-
         playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
                                                         data.xpGivenIfDeafeted;
 
 
         playerPrefab.GetComponent<Transform>().position = position;
-        playerPrefab.GetComponent<Transform>().Find("Player_Pos").position = position;
+        playerPrefab.GetComponent<Transform>().Find(
+                                             "Player_Pos").position = position;
 
 
 

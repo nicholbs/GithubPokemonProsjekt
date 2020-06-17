@@ -15,10 +15,23 @@ public class ChangeScene : MonoBehaviour
     **************************************************************************/
     public void ChangeToScene(string sceneToChangeTo)
     {
+        StartCoroutine(ChangeTheScene(sceneToChangeTo));
+    }
+    
+    public IEnumerator ChangeTheScene(string sceneChangeTo)
+    {
         StaticClass.NamePlayerPrefab = "Player_Prefabs\\" + hvilkenPlayer;
         StaticClass.NameEnemyPrefab = "Boss_Prefabs\\" + hvilkenBoss;
 
-        SceneManager.LoadScene(sceneToChangeTo);
-        
+
+        StaticClass.EnemyFilePath = "\\" + hvilkenBoss;
+        StaticClass.PlayerFilePath = "\\" + hvilkenPlayer;
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneChangeTo);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }
