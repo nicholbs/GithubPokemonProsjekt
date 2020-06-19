@@ -20,9 +20,7 @@ public class PlayerData
     public float maxXP;
 
     public float xpGivenIfDeafeted;
-
-    public float[] position;
-    //>Dataen som er tilgjengelig for oss å lagre til fil
+  //>Dataen som er tilgjengelig for oss å lagre til fil
 
 
     /**********************************************************************//**
@@ -47,10 +45,5 @@ public class PlayerData
         maxXP = player.maxEXP;
 
         xpGivenIfDeafeted = player.xpToGiveIfDefeated;
-
-        position = new float[3];
-        position[0] = player.transform.position.x;
-        position[1] = player.transform.position.y;
-        position[2] = player.transform.position.z;
     }
 }

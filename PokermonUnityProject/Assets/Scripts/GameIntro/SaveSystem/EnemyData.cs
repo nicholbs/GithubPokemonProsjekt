@@ -5,13 +5,23 @@ using UnityEngine;
 [System.Serializable]                           //Betyr at vi kan lagre som fil
 public class EnemyData
 {
+    public string unitName;
+    public string unitCatchPhrase;
+
     public int level;
-    public int health;
-    public float xp;
-    public float[] position;
+    public int damage;
+
+    public int maxHealth;
+    public int currentHP;
+
+    public int unitHealing;
+
+    public float currentXP;
+    public float maxXP;
+
     public float xpGivenIfDeafeted;
-                          //>Dataen som er tilgjengelig for oss å lagre til fil
-   
+    //>Dataen som er tilgjengelig for oss å lagre til fil
+
     /**********************************************************************//**
     * Funksjon for å hente inn Data fra en Unit, nemlig enemy.
     * 
@@ -20,14 +30,20 @@ public class EnemyData
     **************************************************************************/
     public EnemyData(Unit enemy)
     {
-        level = enemy.unitLevel;
-        health = enemy.currentHP;
-        xp = enemy.currentEXP;
-        xpGivenIfDeafeted = enemy.xpToGiveIfDefeated;
+        unitName = enemy.unitName;
+        unitCatchPhrase = enemy.catchPhrase;
 
-        position = new float[3];
-        position[0] = enemy.transform.position.x;
-        position[1] = enemy.transform.position.y;
-        position[2] = enemy.transform.position.z;
+        level = enemy.unitLevel;
+        damage = enemy.damage;
+
+        maxHealth = enemy.maxHP;
+        currentHP = enemy.currentHP;
+
+        unitHealing = enemy.healingAmount;
+
+        currentXP = enemy.currentEXP;
+        maxXP = enemy.maxEXP;
+
+        xpGivenIfDeafeted = enemy.xpToGiveIfDefeated;
     }
 }

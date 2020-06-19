@@ -24,6 +24,7 @@ public class ChangeScene : MonoBehaviour
         StaticClass.NameEnemyPrefab = "Boss_Prefabs\\" + hvilkenBoss;
 
 
+        StaticClass.PosPlayerFilePath = "\\" + hvilkenPlayer + "_Pos";
         StaticClass.EnemyFilePath = "\\" + hvilkenBoss;
         StaticClass.PlayerFilePath = "\\" + hvilkenPlayer;
 

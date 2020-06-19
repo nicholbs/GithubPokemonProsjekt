@@ -8,4 +8,5 @@
     public static string EnemyFilePath { get; set; }
 
     public static string PlayerFilePath { get; set; }
+    public static string PosPlayerFilePath { get; set; }
 }

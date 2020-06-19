@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 using UnityEngine;
-using System.IO;
-using System.Linq;
+
 
 public class Unit : MonoBehaviour
 {
@@ -30,12 +30,12 @@ public class Unit : MonoBehaviour
     {
         for (int i = 0; i < xp; i++)
         {
-        currentEXP += 1;
+        currentEXP++;
 
             if (currentEXP >= maxEXP)
             {
                 float differanseIMaxXP = 10f;
-                unitLevel += 1;
+                unitLevel++;
                 currentEXP -= maxEXP;
                 maxEXP += maxEXP / differanseIMaxXP;
 
@@ -70,6 +70,7 @@ public class Unit : MonoBehaviour
         currentHP += amount;
         if (currentHP > maxHP)
             currentHP = maxHP;
+        
     }
 
     /**********************************************************************//**
@@ -79,7 +80,9 @@ public class Unit : MonoBehaviour
     **************************************************************************/
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this);
+        PlayerData player = new PlayerData(this);
+
+        SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.PlayerFilePath, player);
     }
 
 
@@ -89,67 +92,22 @@ public class Unit : MonoBehaviour
     *
     * @see Script_saveSystem.LoadPlayer() - Unit (player) som lagres
     **************************************************************************/
-    public void LoadPlayer(GameObject Player_Pos)
+    public void LoadPlayer() 
     {
-        PlayerData data = SaveSystem.LoadPlayer();
-        unitName = data.unitName;
-        catchPhrase = data.unitCatchPhrase;
+        PlayerData unitFrafil = SaveSystem.ReadFromBinaryFile(Application.persistentDataPath + StaticClass.PlayerFilePath);
+        this.unitName = unitFrafil.unitName;
+        this.catchPhrase = unitFrafil.unitCatchPhrase;
 
-        unitLevel = data.level;
-        damage = data.level;
+        this.unitLevel = unitFrafil.level;
+        this.damage = unitFrafil.damage;
 
-        currentHP = data.currentHP;
-        maxHP = data.maxHealth;
+        this.maxHP = unitFrafil.maxHealth;
+        this.currentHP = unitFrafil.currentHP;
 
-        healingAmount = data.unitHealing;
+        this.currentEXP = unitFrafil.currentXP;
+        this.maxEXP = unitFrafil.maxXP;
 
-        currentEXP = data.currentXP;
-        maxEXP = data.maxXP;
-        xpToGiveIfDefeated = data.xpGivenIfDeafeted;
-
-
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-
-
-
-        Player_Pos.GetComponent<Transform>().position = position;
-        transform.position = position;
-
-
-        /*
-         * Oppdaterer valgt player prefab nedenfor
-         */
-
-        GameObject playerPrefab = Resources.Load<GameObject>(
-                                                 StaticClass.NamePlayerPrefab);
-
-
-        playerPrefab.GetComponent<Unit>().unitName = data.unitName;
-        playerPrefab.GetComponent<Unit>().catchPhrase = data.unitCatchPhrase;
-
-        playerPrefab.GetComponent<Unit>().unitLevel = data.level;
-        playerPrefab.GetComponent<Unit>().damage = data.damage;
-
-        playerPrefab.GetComponent<Unit>().maxHP = data.maxHealth;
-        playerPrefab.GetComponent<Unit>().currentHP = data.currentHP;
-
-        playerPrefab.GetComponent<Unit>().healingAmount = data.unitHealing;
-
-        playerPrefab.GetComponent<Unit>().currentEXP = data.currentXP;
-        playerPrefab.GetComponent<Unit>().maxEXP = data.maxXP;
-        playerPrefab.GetComponent<Unit>().xpToGiveIfDefeated =
-                                                        data.xpGivenIfDeafeted;
-
-
-        playerPrefab.GetComponent<Transform>().position = position;
-        playerPrefab.GetComponent<Transform>().Find(
-                                             "Player_Pos").position = position;
-
-
-
+        this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
 
     }
 
@@ -161,7 +119,9 @@ public class Unit : MonoBehaviour
     **************************************************************************/
     public void SaveEnemy()
     {
-        SaveSystem.SaveEnemy(this);
+        PlayerData enemy = new PlayerData(this);
+
+        SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.EnemyFilePath, enemy);
     }
 
     /**********************************************************************//**
@@ -171,15 +131,20 @@ public class Unit : MonoBehaviour
     **************************************************************************/
     public void LoadEnemy()
     {
-        EnemyData data = SaveSystem.LoadEnemy();
-        unitLevel = data.level;
-        currentHP = data.health;
+        PlayerData unitFrafil = SaveSystem.ReadFromBinaryFile(Application.persistentDataPath + StaticClass.EnemyFilePath);
+        this.unitName = unitFrafil.unitName;
+        this.catchPhrase = unitFrafil.unitCatchPhrase;
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        transform.position = position;
+        this.unitLevel = unitFrafil.level;
+        this.damage = unitFrafil.damage;
+
+        this.maxHP = unitFrafil.maxHealth;
+        this.currentHP = unitFrafil.currentHP;
+
+        this.currentEXP = unitFrafil.currentXP;
+        this.maxEXP = unitFrafil.maxXP;
+
+        this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
     }
 
 }

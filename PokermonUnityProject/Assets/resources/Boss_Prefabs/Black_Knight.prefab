@@ -49,14 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Black Knight
   catchPhrase: "AIDS is God\u2019s punishment for homosexuals"
-  unitLevel: 10
-  damage: 10
+  unitLevel: 15
+  damage: 25
   maxHP: 30
   currentHP: 30
   healingAmount: 15
   currentEXP: 0
   maxEXP: 100
-  xpToGiveIfDefeated: 60
+  xpToGiveIfDefeated: 500
 --- !u!212 &6883768601194310829
 SpriteRenderer:
   m_ObjectHideFlags: 0

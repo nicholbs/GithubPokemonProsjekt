@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfed1920ce9e6524e839d3427f8aa087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hvilkenPlayer: Player_Test
-  hvilkenBoss: Gaynor
+  hvilkenPlayer: Player
+  hvilkenBoss: Black_Knight
 --- !u!4 &1307911442
 Transform:
   m_ObjectHideFlags: 0

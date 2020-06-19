@@ -3,100 +3,134 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
+using UnityEngine.SceneManagement;
 
-//public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
-//        //>variabel BattleState for å representere hvilken "State" spillet er i
-  
-public class BattleSystem : MonoBehaviour
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+        //>variabel BattleState for å representere hvilken "State" spillet er i
+
+public class BattleSceneSystem : MonoBehaviour
 {
     public BattleState state;  //Variabel for "State" i GameObject_BattleSystem
 
-    public GameObject playerPrefab;//variabel for Unit, bruk "Player" som param
-    public GameObject enemyPrefab;  //variabel for Unit, bruk "Enemy" som param
-    //>Prefab betyr "ferdigstilt", altså ferdigstilte GameObject 
+    //public GameObject playerPrefab;//variabel for Unit, bruk "Player" som param
+    //public GameObject enemyPrefab;  //variabel for Unit, bruk "Enemy" som param
 
-    public Transform playerBattleStation;  
+
+    public Transform playerPos;
                    //>variabel for pos til battleStation hvor "Player" skal stå
-    public Transform enemyBattleStation;
+    public Transform enemyPos;
                     //>variabel for pos til battleStation hvor "Enemy" skal stå
 
-    Unit playerUnit;                //variabel for Unit, put "Player" som param
-    Unit enemyUnit;                  //variabel for Unit, put "Enemy" som param
+        Unit playerUnit;            //variabel for Unit, put "Player" som param
+        Unit enemyUnit;              //variabel for Unit, put "Enemy" som param
 
     public Text dialogueText;           //variabel for Text i Image_dialogueBox
-
-
+   
     public BattleHud playerHUD;           //variabel for BattleHud til "Player"
     public BattleHud enemyHUD;             //variabel for BattleHud til "Enemy"
 
 
-    Vector3 gammelPos;
-  
- 
+    GameObject player;
+          //>Variabel for spiller som blir "instantiatet" i scene under runtime
+    GameObject boss;
+    //>Variabel for Boss som blir "instantiatet" i scene under runtime
+
+    public string sceneToLoad = null;
+
+
     /**********************************************************************//**
     * Funksjon som blir kalt før første frame oppdateringen, altså med en gang.
     **************************************************************************/
     void Start()
     {
-    gammelPos = playerPrefab.GetComponent<Transform>().position;
-        /*
-         * Lagrer posisjonen til player slik at vi kan nullstille pos i battle
-         * slik at spilleren sin sprite blir riktig plassert på battleStation
-         * Så når kampen er over blir pos tilbake til gammelPos
-         */
         state = BattleState.START;                //BattleState starter i START
         StartCoroutine(SetupBattle());//For å lage ventetid bruker vi Coroutine
-        //>Coroutine kjører seperat fra alt annet og lar oss pause når vi vil.
-     //>For å kalle på en Coroutine må vi legge StartCoroutine(funksjonNavn());
     }
 
 
     /**********************************************************************//**
     * Funksjon for å gjøre klar kampen. Oppdatere Hud, legge til Spillere.. osv
     * 
-    * Funksjonen starter med at du ser "Player" og "Enemy" på sine 
-    * BattleStation og det er ønskelig før kampen starter at du får innledende
-    * tekst. Funksjonen er derfor gjort om til en Coroutine. For å gjøre om til
-    * Coroutine bytter vi "returnType" med "IEnumerator". Da kan vi bruke:
-    *       yield return new WaitForSeconds(float ventetidISekunder);
+    * Funksjon har ventetid og er derfor Coroutine.
+    * Funksjonen oppretter to objecter (enemy og spiller) under "runtime" som
+    * blir plassert på battle stasjonene med oppdatert info på hver sin HUD.
+    * Funksjonen gjør det deretter til spilleren sin tur.
+    *
     * @see void Script_BattleHud.SetHud(Unit unit)-oppdatere tekst på BattleHud
     * @see void Script_BattleSystem.PlayerTurn() - oppdaterer Image_dialogueBox
     **************************************************************************/
     IEnumerator SetupBattle()
-{
-        playerPrefab.GetComponent<Transform>().position = new Vector3(0, 0, 0);
+    {
+        //player = Instantiate(playerPrefab, playerPos);
+        //boss = Instantiate(enemyPrefab, enemyPos);
+
+        player = Instantiate(Resources.Load<GameObject>(
+                                     StaticClass.NamePlayerPrefab), playerPos);
         /*
-         * Gjør midlertidig posisjonen til spilleren lik x=0, y=0 og z=0
-         * slik at spilleren sin sprite blir riktig plassert på battleStation
-         * NB! sier aldri delete, kan dette bli minne lekasje? ser ut til at
-         * C# har garbage collection som forhindrer slike problemer i
-         * motsetning til C og C++
+         * Instantiater, altså lager en ny player GameObject fra Resources.
+         * Resouces.load loader object fra path.
+         * NB! Resources starter allerede fra prosjektet sin Asseth path.
          */
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        
-           //>Instantiate opretter ett nytt objekt og kan overloades med ny pos
-           //>Lager GameObject lik "Unit" (Player) og med pos til BattleStation
+        player.GetComponent<Transform>().position = playerPos.position;
+        player.GetComponent<Unit>().LoadPlayer();
 
-        playerUnit = playerGO.GetComponent<Unit>();
+        boss = Instantiate(Resources.Load<GameObject>(
+                                       StaticClass.NameEnemyPrefab), enemyPos);
+        boss.GetComponent<Transform>().position = enemyPos.position;
+        boss.GetComponent<Unit>().LoadEnemy();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-        //>Instantiate kopierer ett objekt og kan overloades med ny pos
-            //>Lager GameObject lik "Unit" (Enemy) og med pos til BattleStation
+        /*
+         * Instantiater, altså lager en ny player GameObject fra Resources.
+         * Resouces.load loader object fra path.
+         * NB! Resources starter allerede fra prosjektet sin Asseth path.
+         */
 
 
+
+        /*
+         * Tar på prefab sin cinematic sprite
+         * Ikke i bruk( Tar av prefab sine overWorld sprite) siden prefab
+         * starter med alle componenter som ikke "enabled".
+         */
+        GameObject cinematicBoss = boss.GetComponent<Transform>().Find("cinematic").gameObject;
+        cinematicBoss.GetComponent<SpriteRenderer>().enabled = true;
+
+        GameObject cinematicPlayer = player.GetComponent<Transform>().Find("cinematic").gameObject;
+        cinematicPlayer.GetComponent<SpriteRenderer>().enabled = true;
+        //boss.GetComponent<SpriteRenderer>().enabled = false;
+        //player.GetComponent<SpriteRenderer>().enabled = false;  
+
+
+
+
+        /*
+        * Lager player og boss objecter "under" 
+        * runtime utifra prefab og med ny pos fra andre parameter
+        */
+        playerUnit = player.GetComponent<Unit>();
+        enemyUnit = boss.GetComponent<Unit>();
+
+        player.GetComponentInChildren<Playermovesin>().enabled = true;
         dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
        //>Setter teksten i Image_DialogueBox til "A wild ..., altså intro tekst
 
         playerHUD.SetHud(playerUnit);  //Oppdaterer "Player" sin BattleHud info
         enemyHUD.SetHud(enemyUnit);     //Oppdaterer "Enemy" sin BattleHud info
 
-        yield return new WaitForSeconds(1f);      //Venter i 1 sekund for intro
+        yield return new WaitForSeconds(2f);      //Venter i 1 sekund for intro
 
         state = BattleState.PLAYERTURN;                        //Player sin tur
         PlayerTurn();                  //Oppdaterer Image_DialogueBox sin tekst
+    }
 
-}
+    /**********************************************************************//**
+    * Funksjon for å oppdatere Image_DialogueBox med ny tekst
+    **************************************************************************/
+    void PlayerTurn()
+    {
+        dialogueText.text = "Choose an action:";
+    }
+
 
     /**********************************************************************//**
     * Funksjon for angrep til "Player", Player vinner eller Enemy får sin tur.
@@ -113,10 +147,10 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerAttack()
     {
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-                              //>Sjekker om "Enemy" dør av "Player" sitt angrep
+        //>Sjekker om "Enemy" dør av "Player" sitt angrep
 
-        enemyHUD.SetHp(enemyUnit.currentHP);    
-                                       //>oppdaterer health slider på BattleHud
+        enemyHUD.SetHp(enemyUnit.currentHP);
+        //>oppdaterer health slider på BattleHud
         dialogueText.text = "The attack is successful!";           //Veiledende
 
 
@@ -125,15 +159,16 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();         //Sjekker state, Image_DialogueBox sier vunnet
+            EndBattle();         //Sjekker state, Image_DialogueBox sier vunnet           AvKommenter
         }
-        else 
+        else
         {
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());   //Nesten identisk til PlayerAttack()
         }
 
     }
+
 
     /**********************************************************************//**
     * Funksjon for å heale "Player". Oppdaterer Image_DialogueBox og Enemy tur.
@@ -149,8 +184,8 @@ public class BattleSystem : MonoBehaviour
     **************************************************************************/
     IEnumerator PlayerHeal()
     {
-        playerUnit.Heal(playerUnit.healingAmount); 
-                                               //healer basert på healingAmount
+        playerUnit.Heal(playerUnit.healingAmount);
+        //healer basert på healingAmount
 
         playerHUD.SetHp(playerUnit.currentHP); //Oppdaterer Player BattleHud hp
         dialogueText.text = "You feel renewed strenght!";          //Veiledende
@@ -182,15 +217,15 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);          //Venter i 0.5 sekunder
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-                              //>Sjekker om "Player" dør av "Enemy" sitt angrep
+        //>Sjekker om "Player" dør av "Enemy" sitt angrep
         playerHUD.SetHp(playerUnit.currentHP);
-                                       //>oppdaterer health slider på BattleHud
-        
+        //>oppdaterer health slider på BattleHud
+
         yield return new WaitForSeconds(1f);//Venter i to sekunder før ny state
         if (isDead)
         {
             state = BattleState.LOST;
-            EndBattle();           //Sjekker state, Image_DialogueBox sier tapt
+            EndBattle();           //Sjekker state, Image_DialogueBox sier tapt           AvKommenter
 
         }
         else
@@ -200,84 +235,6 @@ public class BattleSystem : MonoBehaviour
         }
 
 
-    }
-
-
-
-    /**********************************************************************//**
-    * Funksjon for å oppdatere Image_DialogueBox med ny tekst
-    **************************************************************************/
-    void PlayerTurn()
-    {
-        dialogueText.text = "Choose an action:";
-    }
-
-
-    /**********************************************************************//**
-    * Funksjon for å oppdatere Image_DialogueBox basert på state med ny tekst
-    **************************************************************************/
-    void EndBattle()
-    {
-
-        if (state == BattleState.WON)
-        {
-            dialogueText.text = "You won the battle!";
-            //Unit temp =
-            StartCoroutine(playerHUD.SetXP(enemyUnit.xpToGiveIfDefeated));                      //oppdater xpslider
-            playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
-            //playerPrefab.GetComponent<Unit>().currentEXP = temp.currentEXP;
-            //playerPrefab.GetComponent<Unit>().maxEXP = temp.maxEXP;
-            OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab
-           
-            
-        }
-        else if (state == BattleState.LOST)
-        {
-            dialogueText.text = "You are defeated!";
-            StartCoroutine(enemyHUD.SetXP(playerUnit.xpToGiveIfDefeated));
-             OppdaterPreFab();           //Oppdaterer all data fra kampen til prefab
-        }
-    }
-
-
- 
-
-
-
-    /**********************************************************************//**
-    * Funksjon for å oppdatere prefab sine data med nye verdier etter kamp
-    **************************************************************************/
-    public void OppdaterPreFab()
-    {
-        playerPrefab.GetComponent<Unit>().currentEXP =
-                                          playerUnit.currentEXP;      //unitLevel
-        playerPrefab.GetComponent<Unit>().maxEXP =
-                                         playerUnit.maxEXP;      //unitLevel
-
-        playerPrefab.GetComponent<Transform>().position = gammelPos;
-        /*
-         * Gjør posisjonen til spilleren tilbake til pos den hadde i selve
-         * spillet fra den nullstilte posisjonen som er nødvendig i battle
-         */
-
-        playerPrefab.GetComponent<Unit>().unitLevel =
-                                         playerUnit.unitLevel;      //unitLevel
-
-        playerPrefab.GetComponent<Unit>().damage =
-                                            playerUnit.damage;         //damage
-
-        playerPrefab.GetComponent<Unit>().maxHP =
-                                             playerUnit.maxHP;          //maxHP
-
-        playerPrefab.GetComponent<Unit>().currentHP =
-                                         playerUnit.currentHP;      //CurrentHP
-
-        playerPrefab.GetComponent<Unit>().healingAmount =
-                                     playerUnit.healingAmount;  //healingAmount
-        /*
-         * Oppdaterer verdiene til spilleren med unit playerUnit sin data fra
-         * kampen slik at spilleren blir i annen scene også er oppdatert.
-         */
     }
 
     /**********************************************************************//**
@@ -297,7 +254,6 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerAttack());
     }
 
-
     /**********************************************************************//**
     * Funksjon brukt i "Heal" knappen. Sjekker state, healer om riktig.
     * 
@@ -313,6 +269,53 @@ public class BattleSystem : MonoBehaviour
             return;
 
         StartCoroutine(PlayerHeal());
+    }
+
+
+    /**********************************************************************//**
+    * Funksjon for å oppdatere Image_DialogueBox basert på state med ny tekst
+    **************************************************************************/
+    void EndBattle()
+    {
+
+        if (state == BattleState.WON)
+        {
+            dialogueText.text = "You won the battle!";
+
+            StartCoroutine(playerHUD.SetXP(enemyUnit.xpToGiveIfDefeated, playerUnit.unitLevel));                      //oppdater xpslider
+        StartCoroutine(GoToOverworld(enemyUnit.xpToGiveIfDefeated));
+            playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
+            playerUnit.SavePlayer();
+        }
+
+
+        else if (state == BattleState.LOST)
+        {
+            dialogueText.text = "You are defeated!";
+
+            StartCoroutine(enemyHUD.SetXP(playerUnit.xpToGiveIfDefeated, enemyUnit.unitLevel));
+        StartCoroutine(GoToOverworld(playerUnit.xpToGiveIfDefeated));
+            enemyUnit.currentEXP = enemyUnit.LevelUpCheck(playerUnit.xpToGiveIfDefeated);
+            enemyUnit.SaveEnemy();    
+        }
+    }
+
+
+
+    IEnumerator GoToOverworld(float tid)
+    {
+        if (sceneToLoad != null)
+        {
+            tid *= 0.025f;
+            yield return new WaitForSeconds(tid);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+        }
     }
 
 }
