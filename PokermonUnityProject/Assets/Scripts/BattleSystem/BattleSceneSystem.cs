@@ -4,6 +4,8 @@ using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.UI;                            //Nødvendig for UI object Text 
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
         //>variabel BattleState for å representere hvilken "State" spillet er i
@@ -72,27 +74,48 @@ public class BattleSceneSystem : MonoBehaviour
          * NB! Resources starter allerede fra prosjektet sin Asseth path.
          */
         player.GetComponent<Transform>().position = playerPos.position;
-        player.GetComponent<Unit>().LoadPlayer();
 
-        boss = Instantiate(Resources.Load<GameObject>(
+        if (File.Exists(Application.persistentDataPath + StaticClass.AutoSavePathPlayer))
+            {
+            player.GetComponent<Unit>().LoadPlayerAuto();
+            Debug.Log("Load auto player ");
+            }
+        else
+          {
+            player.GetComponent<Unit>().LoadPlayer();
+         Debug.Log("Load vanlig player ");
+          }
+
+
+         boss = Instantiate(Resources.Load<GameObject>(
                                        StaticClass.NameEnemyPrefab), enemyPos);
         boss.GetComponent<Transform>().position = enemyPos.position;
-        boss.GetComponent<Unit>().LoadEnemy();
 
-        /*
-         * Instantiater, altså lager en ny player GameObject fra Resources.
-         * Resouces.load loader object fra path.
-         * NB! Resources starter allerede fra prosjektet sin Asseth path.
-         */
+        if (File.Exists(Application.persistentDataPath + StaticClass.AutoSavePathEnemy))
+            {
+                boss.GetComponent<Unit>().LoadEnemyAuto();
+                Debug.Log("Load auto Enemy ");
+            }
+        else
+            {
+                boss.GetComponent<Unit>().LoadEnemy();
+            Debug.Log("Load vanlig Enemy ");
+            }
+
+    /*
+     * Instantiater, altså lager en ny player GameObject fra Resources.
+     * Resouces.load loader object fra path.
+     * NB! Resources starter allerede fra prosjektet sin Asseth path.
+     */
 
 
 
-        /*
-         * Tar på prefab sin cinematic sprite
-         * Ikke i bruk( Tar av prefab sine overWorld sprite) siden prefab
-         * starter med alle componenter som ikke "enabled".
-         */
-        GameObject cinematicBoss = boss.GetComponent<Transform>().Find("cinematic").gameObject;
+    /*
+     * Tar på prefab sin cinematic sprite
+     * Ikke i bruk( Tar av prefab sine overWorld sprite) siden prefab
+     * starter med alle componenter som ikke "enabled".
+     */
+    GameObject cinematicBoss = boss.GetComponent<Transform>().Find("cinematic").gameObject;
         cinematicBoss.GetComponent<SpriteRenderer>().enabled = true;
 
         GameObject cinematicPlayer = player.GetComponent<Transform>().Find("cinematic").gameObject;
@@ -285,7 +308,7 @@ public class BattleSceneSystem : MonoBehaviour
             StartCoroutine(playerHUD.SetXP(enemyUnit.xpToGiveIfDefeated, playerUnit.unitLevel));                      //oppdater xpslider
         StartCoroutine(GoToOverworld(enemyUnit.xpToGiveIfDefeated));
             playerUnit.currentEXP = playerUnit.LevelUpCheck(enemyUnit.xpToGiveIfDefeated);
-            playerUnit.SavePlayer();
+            playerUnit.SavePlayerAuto();
         }
 
 
@@ -296,7 +319,8 @@ public class BattleSceneSystem : MonoBehaviour
             StartCoroutine(enemyHUD.SetXP(playerUnit.xpToGiveIfDefeated, enemyUnit.unitLevel));
         StartCoroutine(GoToOverworld(playerUnit.xpToGiveIfDefeated));
             enemyUnit.currentEXP = enemyUnit.LevelUpCheck(playerUnit.xpToGiveIfDefeated);
-            enemyUnit.SaveEnemy();    
+            //enemyUnit.SaveEnemy();    
+            enemyUnit.SaveEnemyAuto();    
         }
     }
 

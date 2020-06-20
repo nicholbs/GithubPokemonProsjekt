@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6883768601194310828}
   - component: {fileID: 6883768601194310865}
   m_Layer: 0
-  m_Name: Black_Knight
+  m_Name: Samuel_Jackson
   m_TagString: interObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,16 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fa7f3a9212cf84786c96f76d5d2fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Black Knight
-  catchPhrase: "AIDS is God\u2019s punishment for homosexuals"
-  unitLevel: 15
-  damage: 30
+  unitName: Samuel M. F Jackson
+  catchPhrase: I'm sick of these mf snakes
+  unitLevel: 10
+  damage: 35
   maxHP: 30
   currentHP: 30
   healingAmount: 15
-  currentEXP: 0
-  maxEXP: 100
-  xpToGiveIfDefeated: 60
+  currentEXP: 40
+  maxEXP: 121
+  xpToGiveIfDefeated: 10
 --- !u!212 &6883768601194310829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -96,12 +96,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 36fe923cd3253f44fa331d7df36a6261, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c51049fe20b397d4fab900e064cbc219, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.375, y: 4.4375}
+  m_Size: {x: 13.753846, y: 13.753846}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,8 +137,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.8333335, y: 5.9166665}
-    newSize: {x: 4.375, y: 4.4375}
+    oldSize: {x: 13.753846, y: 13.753846}
+    newSize: {x: 13.753846, y: 13.753846}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -216,7 +216,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 86e1f58d06865ab499528776f70e8ce5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a06151595746b604e9fde57c7727d399, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

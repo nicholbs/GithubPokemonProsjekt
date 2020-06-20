@@ -23,7 +23,6 @@ public static class SaveSystem
             var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             binaryFormatter.Serialize(stream, objectToWrite);
         }
-    
     }
 
     /**********************************************************************//**

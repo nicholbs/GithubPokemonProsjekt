@@ -20,13 +20,19 @@ public class ChangeScene : MonoBehaviour
     
     public IEnumerator ChangeTheScene(string sceneChangeTo)
     {
-        StaticClass.NamePlayerPrefab = "Player_Prefabs\\" + hvilkenPlayer;
-        StaticClass.NameEnemyPrefab = "Boss_Prefabs\\" + hvilkenBoss;
+        StaticClass.NamePlayerPrefab = "Player_Prefabs\\" + hvilkenPlayer;//valgt spiller prefab sin path
+        StaticClass.NameEnemyPrefab = "Boss_Prefabs\\" + hvilkenBoss;//valgt boss prefab sin path
 
 
-        StaticClass.PosPlayerFilePath = "\\" + hvilkenPlayer + "_Pos";
-        StaticClass.EnemyFilePath = "\\" + hvilkenBoss;
-        StaticClass.PlayerFilePath = "\\" + hvilkenPlayer;
+        StaticClass.EnemyFilePath = "\\" + hvilkenBoss;     //lagring av spiller path
+        StaticClass.PlayerFilePath = "\\" + hvilkenPlayer;      //lagring av boss path
+
+        StaticClass.PosPlayerFilePath = "\\" + hvilkenPlayer + "_Pos";      //for pos openworld
+
+
+        
+        StaticClass.AutoSavePathPlayer = "\\" + hvilkenPlayer + "_AutoSave";    //path til siste autosave
+        StaticClass.AutoSavePathEnemy = "\\" + hvilkenBoss + "_AutoSave";    //path til siste autosave
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneChangeTo);
 

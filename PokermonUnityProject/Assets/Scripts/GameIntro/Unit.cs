@@ -85,6 +85,19 @@ public class Unit : MonoBehaviour
         SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.PlayerFilePath, player);
     }
 
+    /**********************************************************************//**
+    * Funksjon for å Save en Unit, nemlig player. Brukt i "Save" knapper
+    *
+    * @see Script_saveSystem.SavePlayer(Script_Unit) - Unit (player) som lagres
+    **************************************************************************/
+    public void SavePlayerAuto()
+    {
+        PlayerData player = new PlayerData(this);
+        SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.AutoSavePathPlayer, player);
+        //StaticClass.AutoSaveAmountPlayer++;
+        //Debug.Log(StaticClass.AutoSaveAmountPlayer);
+    }
+
 
 
     /**********************************************************************//**
@@ -108,7 +121,44 @@ public class Unit : MonoBehaviour
         this.maxEXP = unitFrafil.maxXP;
 
         this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
+    }
 
+
+    /**********************************************************************//**
+    * Funksjon for å "Loading" av Unit, nemlig player. Brukt i "Load" knapper
+    *
+    * @see Script_saveSystem.LoadPlayer() - Unit (player) som lagres
+    **************************************************************************/
+    public void LoadPlayerAuto()
+    {
+        PlayerData unitFrafil = SaveSystem.ReadFromBinaryFile(Application.persistentDataPath + StaticClass.AutoSavePathPlayer);
+        this.unitName = unitFrafil.unitName;
+        this.catchPhrase = unitFrafil.unitCatchPhrase;
+
+        this.unitLevel = unitFrafil.level;
+        this.damage = unitFrafil.damage;
+
+        this.maxHP = unitFrafil.maxHealth;
+        this.currentHP = unitFrafil.currentHP;
+
+        this.currentEXP = unitFrafil.currentXP;
+        this.maxEXP = unitFrafil.maxXP;
+
+        this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
+    }
+
+
+
+    /**********************************************************************//**
+    * Funksjon for å Save en Unit, nemlig enemy.
+    *
+    * @see Script_saveSystem.SaveEnemy(Script_Unit) - Unit (enemy) som lagres
+    **************************************************************************/
+    public void SaveEnemyAuto()
+    {
+        PlayerData enemy = new PlayerData(this);
+        SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.AutoSavePathEnemy, enemy);
+        
     }
 
 
@@ -123,6 +173,7 @@ public class Unit : MonoBehaviour
 
         SaveSystem.SaveUnitPlayerData(Application.persistentDataPath + StaticClass.EnemyFilePath, enemy);
     }
+
 
     /**********************************************************************//**
     * Funksjon for "Loading" av en Unit, nemlig enemy.
@@ -146,5 +197,54 @@ public class Unit : MonoBehaviour
 
         this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
     }
+
+
+
+    /**********************************************************************//**
+  * Funksjon for "Loading" av en Unit, nemlig enemy.
+  *
+  * @see Script_saveSystem.LoadEnemy(Script_Unit) - Unit (enemy) som lagres
+  **************************************************************************/
+    public void LoadEnemyAuto()
+    {
+        PlayerData unitFrafil = SaveSystem.ReadFromBinaryFile(Application.persistentDataPath + StaticClass.AutoSavePathEnemy);
+        this.unitName = unitFrafil.unitName;
+        this.catchPhrase = unitFrafil.unitCatchPhrase;
+
+        this.unitLevel = unitFrafil.level;
+        this.damage = unitFrafil.damage;
+
+        this.maxHP = unitFrafil.maxHealth;
+        this.currentHP = unitFrafil.currentHP;
+
+        this.currentEXP = unitFrafil.currentXP;
+        this.maxEXP = unitFrafil.maxXP;
+
+        this.xpToGiveIfDefeated = unitFrafil.xpGivenIfDeafeted;
+    }
+
+
+    /**********************************************************************//**
+    * Funksjon for "Loading" av en Unit, nemlig enemy.
+    *
+    * @see Script_saveSystem.LoadEnemy(Script_Unit) - Unit (enemy) som lagres
+    **************************************************************************/
+    public void DeleteAutoSaveEnemy()
+    {
+        if (File.Exists(Application.persistentDataPath + StaticClass.AutoSavePathEnemy))
+        File.Delete(Application.persistentDataPath + StaticClass.AutoSavePathEnemy);
+    }
+
+    /**********************************************************************//**
+  * Funksjon for "Loading" av en Unit, nemlig enemy.
+  *
+  * @see Script_saveSystem.LoadEnemy(Script_Unit) - Unit (enemy) som lagres
+  **************************************************************************/
+    public void DeleteAutoSavePlayer()
+    {
+        if (File.Exists(Application.persistentDataPath + StaticClass.AutoSavePathPlayer))
+            File.Delete(Application.persistentDataPath + StaticClass.AutoSavePathPlayer);
+    }
+
 
 }
